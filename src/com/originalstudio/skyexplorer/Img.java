@@ -8,10 +8,10 @@ public class Img
 {
 	private static final String PATH = "res/img/";
 	
-	public static final Image starship_r = getImg("starship_r"),
-			starship_l = getImg("starship_l"),
-			starship_t = getImg("starship_t"),
-			starship_b = getImg("starship_b"),
+	public static final Image starship_r = getImg("starship.png"),
+			starship_l = getImg("starship_l.png"),
+			starship_t = getImg("starship_t.png"),
+			starship_b = getImg("starship_b.png"),
 			planet = getImg("planet.png"),
 			bg = getImg("bg.jpg"),
 			bg_with_tuman = getImg("bg_with_tuman.jpg");

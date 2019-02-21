@@ -25,7 +25,8 @@ public abstract class Sprite
     
     // Движения спрайта
     private Timer moving;
-    private int i = 0, current_speed = 0;
+    // Ключ массива картинок, номер итерации таймера и текущая скорость (первый арг. конструктора таймера)
+    private int i = 0, k = 0, current_s = 0;
     
     // 
     public static final int X = 1, Y = 2;
@@ -164,42 +165,48 @@ public abstract class Sprite
     }
     
     // 
-    public void moving(Image[] images, int time, int iter, int dir, int os, int min, int max, int incr)
+    public void moving(Image[] images, int iteration, int start_time, int end_time, int increment_time, int dir, int os, int speed)
     {
         // инициализируем текушую скорость
-        current_speed = min;
+        current_s = start_time;
         
         movingInit(e ->
         {
+            k++; // увеличиваем номер итерации таймера
             //
             updateCurrentSprite(images[i]);
-            i++; //
+            //
+            if (i < images.length-1)
+            {
+                //
+                i++;
+            }
             //
             if (os == X)
             {
-                moveX(dir, current_speed);
+                moveX(dir, current_s);
             }
             //
             else if (os == Y)
             {
-                moveY(dir, current_speed);
+                moveY(dir, current_s);
             }
             // увеличиваем скорость на заданную величину
-            current_speed += incr;
+            current_s -= increment_time;
             // если скорость больше максимальной, то
-            if (current_speed > max)
+            if (current_s < end_time)
             {
                 // просто делаем скорость максимальной, т.е. уменьшаем
-                current_speed = max;
+                current_s = end_time;
             }
             
             //
-            if (i >= images.length || i >= iter)
+            if (k >= iteration)
             {
                 stop();
             }
             
-        }, time);
+        }, current_s);
     }
     
     // TODO 19.02.2019 create new method calls "moving" for realistic speed (low and then fasten)
@@ -213,7 +220,7 @@ public abstract class Sprite
         // изменяем ключ массива с картинками на 0
         i = 0;
         // и обновляем текущую скорость
-        current_speed = 0;
+        current_s = 0;
     }
     
     // Метод для установки слушателя клавиатуры:
