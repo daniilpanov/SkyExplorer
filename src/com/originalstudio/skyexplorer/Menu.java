@@ -53,7 +53,6 @@ public class Menu extends JWindow
     	panel.add(exit);
     	
     	getContentPane().add(panel);
-		setVisible(true);
 	}
 	
 	public void showMenu()
@@ -64,5 +63,7 @@ public class Menu extends JWindow
 	public void play()
 	{
 		setVisible(false);
+		//
+		Main.frame.getContentPane().add(new Game());
 	}
 }

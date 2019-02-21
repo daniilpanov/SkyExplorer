@@ -32,8 +32,6 @@ public class Main extends JFrame
     	setDefaultCloseOperation(EXIT_ON_CLOSE);
     	setMinimumSize(Toolkit.getDefaultToolkit().getScreenSize());
     	//setUndecorated(true);
-    	// 
-    	getContentPane().add(new Game());
     	//
     	setExtendedState(MAXIMIZED_BOTH);
     	setVisible(true);
