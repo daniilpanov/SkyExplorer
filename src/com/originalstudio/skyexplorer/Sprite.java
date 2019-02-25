@@ -25,8 +25,8 @@ public abstract class Sprite
     
     // Движения спрайта
     private Timer moving;
-    // Ключ массива картинок, номер итерации таймера и текущая скорость (первый арг. конструктора таймера)
-    private int i = 0, k = 0, current_s = 0;
+    // Ключ массива картинок и текущая скорость (первый арг. конструктора таймера)
+    private int i = 0, current_s = 0;
     
     // 
     public static final int X = 1, Y = 2;
@@ -164,54 +164,65 @@ public abstract class Sprite
         }, time);
     }
     
-    // 
-    public void moving(Image[] images, int iteration, int start_time, int end_time, int increment_time, int dir, int os, int speed)
+    /**
+     * Перемещение с эффектом нарастающей скорости
+     * (
+     *   images - массив с картинками для обновления после каждой итерации
+     *   start_time - начальное время, end_time - конечное время (минимальная и конечная скорость)
+     *   increment_time - на сколько будет увеличиваться скорость после каждой итерации таймера
+     *   dir - направление (отрицательное/положительное), os - ось (X/Y)
+     *   speed - скорость (количество пикселей, на которое будет сдвигаться спрайт после каждой итерации таймера)
+     * )
+     */
+    public void moving(Image[] images, int start_time, int end_time, int increment_time, int dir, int os, int speed, Runnable stop)
     {
         // инициализируем текушую скорость
+        // (скоростью здесь называется интервал таймера)
         current_s = start_time;
         
+        // Инициализируем таймер
         movingInit(e ->
-        {
-            k++; // увеличиваем номер итерации таймера
-            //
-            updateCurrentSprite(images[i]);
-            //
-            if (i < images.length-1)
             {
-                //
-                i++;
-            }
-            //
-            if (os == X)
-            {
-                moveX(dir, current_s);
-            }
-            //
-            else if (os == Y)
-            {
-                moveY(dir, current_s);
-            }
-            // увеличиваем скорость на заданную величину
-            current_s -= increment_time;
-            // если скорость больше максимальной, то
-            if (current_s < end_time)
-            {
-                // просто делаем скорость максимальной, т.е. уменьшаем
-                current_s = end_time;
-            }
-            
-            //
-            if (k >= iteration)
-            {
-                stop();
-            }
-            
-        }, current_s);
+                // обновляем интервал таймера
+                moving.setDelay(current_s);
+                // обновляем картинку спрайта
+                updateCurrentSprite(images[i]);
+                // если картинки не закончились, то
+                if (i < images.length-1)
+                {
+                    // увеличиваем ключ массива с картинками на 1
+                    i++;
+                }
+                // если мы двигаемся по оси X, то
+                if (os == X)
+                {
+                    // вызываем метод для перемещения по X
+                    moveX(dir, speed);
+                }
+                // а если по Y -
+                else if (os == Y)
+                {
+                    // метод для перемещения по Y
+                    moveY(dir, speed);
+                }
+                // увеличиваем скорость на заданную величину
+                current_s -= increment_time;
+                // если скорость больше максимальной, то
+                if (current_s < end_time)
+                {
+                    // просто делаем скорость максимальной, т.е. уменьшаем
+                    current_s = end_time;
+                }
+                // запускаем условие (если оно истина - завершаем работу)
+                stop.run();
+            },
+            // текущая скорость
+            current_s);
     }
     
     // TODO 19.02.2019 create new method calls "moving" for realistic speed (low and then fasten)
     // Полная остановка таймера:
-    private void stop()
+    public void stop()
     {
         // останавливаем таймер,
         moving.stop();

@@ -29,7 +29,7 @@ public class StarShip
 						break;
 					
 					case VK_UP:
-						this.moving(new Image[]{starship_t}, 10, 5, -1, Y, 5, 25, 5);
+						//this.moving(new Image[]{starship_t}, 10, 5, -1, Y, 5, 25, 5);
 						break;
 					
 					case VK_DOWN:
