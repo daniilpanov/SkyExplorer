@@ -1,5 +1,7 @@
 package com.originalstudio.skyexplorer;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -26,13 +28,19 @@ public abstract class Sprite
     // Движения спрайта
     private Timer moving;
     // Ключ массива картинок и текущая скорость (первый арг. конструктора таймера)
-    private int i = 0, current_s = 0;
+    private int i = 0, current_s = 0,
+            // Разгон
+            current_speed_x = 0, current_speed_y = 0;
     
     // 
     public static final int X = 1, Y = 2;
     
+    private boolean reset_speed;
+    
+    // МЕТОДЫ ДЛЯ ЭЛЕМЕНТАРНЫХ ДЕЙСТВИЙ
+    
     // Конструктор:
-    public Sprite(int x, int y, Image sprite_r, Image sprite_l, Image sprite_t, Image sprite_b, Component parent)
+    public Sprite(int x, int y, Image sprite_r, Image sprite_l, Image sprite_t, Image sprite_b, Component parent, boolean reset_speed)
     {
         // Задаём значение свойствам
         this.sprite_r = sprite_r;
@@ -43,6 +51,7 @@ public abstract class Sprite
         this.x = x;
         this.y = y;
         this.parent = parent;
+        this.reset_speed = reset_speed;
     }
     
     // Рисование спрайта:
@@ -54,6 +63,45 @@ public abstract class Sprite
             g.drawImage(sprite, x, y, null);
         }
     }
+    
+    // Удаление изображения спрайта
+    public void delete()
+    {
+        // обновляем картинку (задаём нулевое значение)
+        updateSprite(null, null, null);
+    }
+    
+    // Получение ширины и высоты спрайта
+    public int getWidth()
+    {
+        return sprite.getWidth(null);
+    }
+    public int getHeight()
+    {
+        return sprite.getHeight(null);
+    }
+    
+    // Смена картинки спрайта:
+    public void updateSprite(Image sprite, Image sprite_r, Image sprite_l)
+    {
+        // задаём новые картинки
+        this.sprite = sprite;
+        this.sprite_r = sprite_r;
+        this.sprite_l = sprite_l;
+        // и перерисовываем
+        parent.repaint();
+    }
+    
+    // Смена <u>текущей</u> картинки спрайта:
+    public void updateCurrentSprite(Image sprite)
+    {
+        // задаём новую картинку
+        this.sprite = sprite;
+        // и перерисовываем
+        parent.repaint();
+    }
+    
+    // БОЛЕЕ СЛОЖНЫЕ МЕТОДЫ
     
     // Обновление координат и направления спрайта
     // с флагом - надо ли перерисовывать или нет:
@@ -100,43 +148,6 @@ public abstract class Sprite
         this.update(x, y + l * d, direction_x, d);
     }
     
-    // Смена картинки спрайта:
-    public void updateSprite(Image sprite, Image sprite_r, Image sprite_l)
-    {
-        // задаём новые картинки
-        this.sprite = sprite;
-        this.sprite_r = sprite_r;
-        this.sprite_l = sprite_l;
-        // и перерисовываем
-        parent.repaint();
-    }
-    // Смена <u>текущей</u> картинки спрайта:
-    public void updateCurrentSprite(Image sprite)
-    {
-        // задаём новую картинку
-        this.sprite = sprite;
-        // и перерисовываем
-        parent.repaint();
-    }
-    
-    // Удаление изображения спрайта
-    public void delete()
-    {
-        // обновляем картинку (задаём нулевое значение)
-        updateSprite(null, null, null);
-    }
-    
-    // Получение ширины и высоты спрайта
-    public int getWidth()
-    {
-        return sprite.getWidth(null);
-    }
-    
-    public int getHeight()
-    {
-        return sprite.getHeight(null);
-    }
-    
     // Инициализация таймера:
     private void movingInit(ActionListener e, int time)
     {
@@ -147,7 +158,9 @@ public abstract class Sprite
             moving.start();
         }
     }
-    // TODO: 19.02.2019 create new branch "hotfix-sprite_moving_in_timer"
+    
+    // ОЧЕНЬ СЛОЖНЫЕ МЕТОДЫ
+    
     // Смена картинок спрайта (например, когда спрайт погибает):
     public void positions(Image[] images, int time)
     {
@@ -213,14 +226,13 @@ public abstract class Sprite
                     // просто делаем скорость максимальной, т.е. уменьшаем
                     current_s = end_time;
                 }
-                // запускаем условие (если оно истина - завершаем работу)
+                // запускаем условие (если оно есть) (если оно истина - завершаем работу)
                 stop.run();
             },
             // текущая скорость
             current_s);
     }
     
-    // TODO 19.02.2019 create new method calls "moving" for realistic speed (low and then fasten)
     // Полная остановка таймера:
     public void stop()
     {
@@ -232,27 +244,85 @@ public abstract class Sprite
         i = 0;
         // и обновляем текущую скорость
         current_s = 0;
+        // а также заменяем картинку спрайта на первоначальную
+        updateCurrentSprite(sprite_r);
     }
+    
+    //
+    public void realMoveX(int increment, int min, int max, int dir)
+    {
+        //
+        current_speed_x = min;
+        //
+        moveX(dir, current_speed_x);
+        //
+        current_speed_x += increment;
+        //
+        if (current_speed_x > max)
+        {
+            current_speed_x = max;
+        }
+    }
+    
+    //
+    public void realMoveY(int increment, int min, int max, int dir)
+    {
+        //
+        current_speed_y = min;
+        //
+        moveX(dir, current_speed_y);
+        //
+        current_speed_y += increment;
+        //
+        if (current_speed_y > max)
+        {
+            current_speed_y = max;
+        }
+    }
+    
+    // ADDITIONALLY
     
     // Метод для установки слушателя клавиатуры:
     public void addControl(Component parent)
     {
-        // добавляем слушатель
-        parent.addKeyListener(new KeyAdapter()
-        {
+        KeyAdapter listener = (reset_speed)
+                ? new KeyAdapter() {
             /**
              * Invoked when a key has been pressed.
              *
              * @param e {@link KeyEvent}
              */
             @Override
-            public void keyPressed(KeyEvent e)
-            {
+            public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 // и вызываем метод проверки
                 checkingKey(e);
             }
-        });
+    
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                // сбрасываем текущую скорость
+                current_speed_x = 0;
+                current_speed_y = 0;
+            }
+        }
+                : new KeyAdapter() {
+            /**
+             * Invoked when a key has been pressed.
+             *
+             * @param e {@link KeyEvent}
+             */
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                // и вызываем метод проверки
+                checkingKey(e);
+            }
+        };
+        
+        // добавляем слушатель
+        parent.addKeyListener(listener);
     }
     // Метод для проверки нажатых клавиш
     protected abstract void checkingKey(KeyEvent e);

@@ -15,9 +15,9 @@ public class StarShip
 	public StarShip(Component parent)
 	{
 		this.ship =
-                new Sprite(0, Main.frame.getHeight()/2,
+                new Sprite(Main.frame.getWidth()/2, Main.frame.getHeight()/2,
                         starship_r, starship_l, starship_t, starship_b,
-                        parent)
+                        parent, true)
 		{
 			@Override
 			protected void checkingKey(KeyEvent e)
