@@ -43,6 +43,8 @@ public class Game extends JPanel
 			for (int i = 0; i < 3; i++)
 			{
 				bg_x[i][0] = bg_x[i][2] + bg_w;
+				bg_x[i] = replaceCoordinates(bg_y[i], 0, 2);
+                bg_x[i] = replaceCoordinates(bg_y[i], 0, 1);
 			}
 		}
 		else if (dir == -1)
@@ -50,6 +52,8 @@ public class Game extends JPanel
 			for (int i = 0; i < 3; i++)
 			{
 				bg_x[i][2] = bg_x[i][0] + bg_w;
+                bg_x[i] = replaceCoordinates(bg_y[i], 2, 0);
+                bg_x[i] = replaceCoordinates(bg_y[i], 2, 1);
 			}
 		}
 	}
