@@ -8,7 +8,7 @@ public class Img
 {
 	private static final String PATH = "res/img/";
 	
-	public static final Image starship_r = getImg("starship.png"),
+	public static final Image starship_r = getImg("starship_r.png"),
 			starship_l = getImg("starship_l.png"),
 			starship_t = getImg("starship_t.png"),
 			starship_b = getImg("starship_b.png"),

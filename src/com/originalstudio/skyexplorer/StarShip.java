@@ -42,6 +42,7 @@ public class StarShip
 					
 					case VK_LEFT:
 						this.realMoveX(5, 0, 50, -1);
+						realMoveY(50, 500, 5, -1);
 						break;
 				}
 			}
