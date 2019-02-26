@@ -2,13 +2,16 @@ package com.originalstudio.skyexplorer;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.originalstudio.skyexplorer.Img.*;
 
 public class Game extends JPanel
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6693183466444000235L;
 	
@@ -27,10 +30,58 @@ public class Game extends JPanel
 						{bg_h, bg_h, bg_h}
 				};
 
-	// 
+	//
 	public Game()
 	{
-		
+	
+	}
+	
+	public void shiftX(int dir)
+	{
+		if (dir == 1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				bg_x[i][0] = bg_x[i][2] + bg_w;
+			}
+		}
+		else if (dir == -1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				bg_x[i][2] = bg_x[i][0] + bg_w;
+			}
+		}
+	}
+	
+	public void shiftY(int dir)
+	{
+		if (dir == 1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				bg_y[i][0] = bg_y[i][2] + bg_h;
+				bg_y[i] = replaceCoordinates(bg_y[i], 0, 2);
+                bg_y[i] = replaceCoordinates(bg_y[i], 0, 1);
+			}
+		}
+		else if (dir == -1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				bg_y[i][2] = bg_y[i][0] + bg_h;
+                bg_y[i] = replaceCoordinates(bg_y[i], 2, 0);
+                bg_y[i] = replaceCoordinates(bg_y[i], 2, 1);
+			}
+		}
+	}
+	
+	private int[] replaceCoordinates(int[] array, int i, int to)
+	{
+		int tmp = array[to];
+		array[to] = array[i];
+		array[i] = tmp;
+		return array;
 	}
     
     @Override
