@@ -29,19 +29,19 @@ public class StarShip
 						break;
 					
 					case VK_UP:
-						//this.moving(new Image[]{starship_t}, 10, 5, -1, Y, 5, 25, 5);
+						this.realMoveY(5, 0, 50, -1);
 						break;
 					
 					case VK_DOWN:
-						
+						this.realMoveY(5, 0, 50, 1);
 						break;
 					
 					case VK_RIGHT:
-						
+						this.realMoveX(5, 0, 50, 1);
 						break;
 					
 					case VK_LEFT:
-      
+						this.realMoveX(5, 0, 50, -1);
 						break;
 				}
 			}
