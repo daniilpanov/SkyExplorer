@@ -29,19 +29,19 @@ public class StarShip
 						break;
 					
 					case VK_UP:
-						
+						realMoveY(50, 500, 5, -1);
 						break;
 					
 					case VK_DOWN:
-						
+                        realMoveY(50, 500, 5, 1);
 						break;
 					
 					case VK_RIGHT:
-						
+                        realMoveX(50, 500, 5, 1);
 						break;
 					
 					case VK_LEFT:
-      
+                        realMoveX(50, 500, 5, -1);
 						break;
 				}
 			}
