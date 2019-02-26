@@ -33,8 +33,13 @@ public class Game extends JPanel
 	// 
 	public Game()
 	{
-	
-	}
+        int[] test = {1, 2, 0};
+        System.out.println(test[0] + " " + test[1] + " " + test[2]);
+        test = replaceCoordinates(test, 0, 1);
+        System.out.println(test[0] + " " + test[1] + " " + test[2]);
+        test = replaceCoordinates(test, 0, 2);
+        System.out.println(test[0] + " " + test[1] + " " + test[2]);
+    }
 	
 	public void shiftX(int dir)
 	{
