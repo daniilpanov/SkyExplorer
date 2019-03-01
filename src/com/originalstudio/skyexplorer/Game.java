@@ -1,5 +1,6 @@
 package com.originalstudio.skyexplorer;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.*;
 
@@ -30,7 +31,15 @@ public class Game extends JPanel
 	//
 	public Game()
 	{
-	
+		setLayout(new BorderLayout());
+		JPanel game_menu = new JPanel();
+		JButton open_menu = new JButton("ÎÒÊÐÛÒÜ ÌÅÍÞ");
+		open_menu.setIcon(b_top_menu);
+		game_menu.add(open_menu);
+		
+		open_menu.addActionListener(e -> GameMenu.getInstance().make_show());
+		
+		this.add(game_menu, BorderLayout.NORTH);
 	}
 	
 	public void shiftX(int dir)

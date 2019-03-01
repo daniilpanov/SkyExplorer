@@ -1,7 +1,5 @@
 package com.originalstudio.skyexplorer;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -21,9 +19,8 @@ public abstract class Sprite
     public Image sprite;
     // На чём рисуется спрайт
     public Component parent;
-    // Направление спрайта (1 - право, -1 - лево, 0 - исходная)
-    public int direction_x = 1, // X
-            direction_y = 0;
+    // Направление спрайта (1 - право, -1 - лево)
+    public int direction = 1, axis = X;
     
     // Движения спрайта
     private Timer moving;
@@ -31,6 +28,8 @@ public abstract class Sprite
     private int i = 0, current_s = 0,
             // Разгон
             current_speed_x = 0, current_speed_y = 0;
+    
+    private int[][] border_points = new int[4][2];
     
     // 
     public static final int X = 1, Y = 2;
@@ -52,6 +51,15 @@ public abstract class Sprite
         this.y = y;
         this.parent = parent;
         this.reset_speed = reset_speed;
+    }
+    
+    // Устанавливаем границы, за которые спрайт не может выходить (просто setter)
+    public void setBorders(int min_x, int min_y, int max_x, int max_y)
+    {
+    	border_points[0][0] = min_x; border_points[0][1] = min_y;
+    	border_points[1][0] = min_x; border_points[1][1] = max_y;
+    	border_points[2][0] = max_x; border_points[2][1] = min_y;
+    	border_points[3][0] = max_x; border_points[3][0] = max_y;
     }
     
     // Рисование спрайта:
@@ -105,26 +113,19 @@ public abstract class Sprite
     
     // Обновление координат и направления спрайта
     // с флагом - надо ли перерисовывать или нет:
-    public void update(int x, int y, int dir_x, int dir_y, boolean repaint)
+    public void update(int x, int y, int dir, int axis, boolean repaint)
     {
         // обновляем координаты
         this.x = x;
         this.y = y;
         // и если направление поменялось, то
-        if (dir_x != direction_x) // (по X)
+        if (dir != direction) // 
         {
             // записываем направление
-            this.direction_x = dir_x;
+            this.direction = dir;
+            this.axis = axis;
             // и обновляем картинку
-            updateCurrentSprite((dir_x > 0) ? sprite_r : sprite_l);
-        }
-        //
-        else if (dir_y != direction_y) // (по Y)
-        {
-            // записываем направление
-            this.direction_y = dir_y;
-            // и обновляем картинку
-            updateCurrentSprite((dir_y > 0) ? sprite_t : sprite_b);
+            updateCurrentSprite((dir < 0) ? ((axis == X) ? sprite_l : sprite_t) : ((axis == X) ? sprite_r : sprite_b));
         }
         // и если надо - перерисовываем
         else if (repaint)
@@ -138,14 +139,14 @@ public abstract class Sprite
         this.update(x, y, dir_x, dir_y, true);
     }
     // только для движений вправо-влево
-    public void moveX(int d, int l)
+    public void moveX(int dir, int l)
     {
-        this.update(x + l * d, y, d, direction_y);
+        this.update(x + l * dir, y, dir, X);
     }
     // только для движений вверх-вниз
-    public void moveY(int d, int l)
+    public void moveY(int dir, int l)
     {
-        this.update(x, y + l * d, direction_x, d);
+        this.update(x, y + l * dir, dir, Y);
     }
     
     // Инициализация таймера:
@@ -270,7 +271,7 @@ public abstract class Sprite
         //
         current_speed_y = min;
         //
-        moveX(dir, current_speed_y);
+        moveY(dir, current_speed_y);
         //
         current_speed_y += increment;
         //

@@ -29,20 +29,19 @@ public class StarShip
 						break;
 					
 					case VK_UP:
-						this.realMoveY(5, 0, 50, -1);
+						this.realMoveY(50, 5, 500, -1);
 						break;
 					
 					case VK_DOWN:
-						this.realMoveY(5, 0, 50, 1);
+						this.realMoveY(50, 5, 500, 1);
 						break;
 					
 					case VK_RIGHT:
-						this.realMoveX(5, 0, 50, 1);
+						this.realMoveX(50, 5, 500, 1);
 						break;
 					
 					case VK_LEFT:
-						this.realMoveX(5, 0, 50, -1);
-						realMoveY(50, 500, 5, -1);
+						this.realMoveX(50, 5, 500, -1);
 						break;
 				}
 			}
