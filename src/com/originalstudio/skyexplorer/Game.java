@@ -5,9 +5,12 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 import static com.originalstudio.skyexplorer.Img.*;
+import static com.originalstudio.skyexplorer.Functions.*;
 
 public class Game extends JPanel
 {
+	public static Game control;
+	
 	/**
 	 *
 	 */
@@ -31,10 +34,12 @@ public class Game extends JPanel
 	//
 	public Game()
 	{
+		control = this;
+		
 		setLayout(new BorderLayout());
 		JPanel game_menu = new JPanel();
-		JButton open_menu = new JButton("ÎÒÊÐÛÒÜ ÌÅÍÞ");
-		open_menu.setIcon(b_top_menu);
+		JButton open_menu = new JButton();
+		buttonWithIcon(b_top_menu, open_menu);
 		game_menu.add(open_menu);
 		
 		open_menu.addActionListener(e -> GameMenu.getInstance().make_show());
@@ -85,14 +90,6 @@ public class Game extends JPanel
 			}
 		}
 	}
-	
-	private int[] replaceCoordinates(int[] array, int i, int to)
-	{
-		int tmp = array[to];
-		array[to] = array[i];
-		array[i] = tmp;
-		return array;
-	}
     
     @Override
     protected void paintComponent(Graphics g) {
@@ -114,6 +111,6 @@ public class Game extends JPanel
 		//
 		while (i < 2);
         
-        starShip.ship.render(g);
+        starShip.render(g);
     }
 }

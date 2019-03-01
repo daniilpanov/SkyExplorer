@@ -31,11 +31,17 @@ public class Menu extends JWindow
 	{
     	setSize(Toolkit.getDefaultToolkit().getScreenSize());
     	
-    	JPanel panel = new JPanel(new GridLayout(3, 1, 15, 15));
+    	JPanel panel = new JPanel(new GridLayout(4, 1, 15, 15));
     	
     	JButton play = new JButton("PLAY"),
     			settings = new JButton("SETTINGS"),
+    			help = new JButton("HELP"),
     			exit = new JButton("EXIT");
+    	
+    	panel.add(play);
+    	panel.add(settings);
+    	panel.add(help);
+    	panel.add(exit);
     	
     	play.addActionListener(e -> play());
     	play.setFocusable(false);
@@ -47,10 +53,6 @@ public class Menu extends JWindow
     	exit.setFocusable(false);
     	
     	Main.frame.requestFocus();
-    	
-    	panel.add(play);
-    	panel.add(settings);
-    	panel.add(exit);
     	
     	getContentPane().add(panel);
 	}
@@ -64,6 +66,8 @@ public class Menu extends JWindow
 	{
 		setVisible(false);
 		//
-		Main.frame.getContentPane().add(new Game());
+		JPanel game = new Game();
+		game.setLocation(0, 0);
+		Main.frame.getContentPane().add(game);
 	}
 }
