@@ -35,19 +35,19 @@ public class StarShip extends Sprite
 				break;
 			
 			case VK_UP:
-				this.realMoveY(50, 5, 500, -1);
+				this.realMoveY(4, 2, 50, -1);
 				break;
 			
 			case VK_DOWN:
-				this.realMoveY(50, 5, 500, 1);
+				this.realMoveY(4, 2, 50, 1);
 				break;
 			
 			case VK_RIGHT:
-				this.realMoveX(50, 5, 500, 1);
+				this.realMoveX(4, 2, 50, 1);
 				break;
 			
 			case VK_LEFT:
-				this.realMoveX(50, 5, 500, -1);
+				this.realMoveX(4, 2, 50, -1);
 				break;
 		}
 	}

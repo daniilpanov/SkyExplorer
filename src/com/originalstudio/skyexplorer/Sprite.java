@@ -188,7 +188,7 @@ public abstract class Sprite
      *   speed - скорость (количество пикселей, на которое будет сдвигаться спрайт после каждой итерации таймера)
      * )
      */
-    public void moving(Image[] images, int start_time, int end_time, int increment_time, int dir, int os, int speed, Runnable stop)
+    public void moving(Image[] images, int start_time, int end_time, int increment_time, int dir, int os, int speed)
     {
         // инициализируем текушую скорость
         // (скоростью здесь называется интервал таймера)
@@ -227,8 +227,6 @@ public abstract class Sprite
                     // просто делаем скорость максимальной, т.е. уменьшаем
                     current_s = end_time;
                 }
-                // запускаем условие (если оно есть) (если оно истина - завершаем работу)
-                stop.run();
             },
             // текущая скорость
             current_s);
@@ -253,7 +251,10 @@ public abstract class Sprite
     public void realMoveX(int increment, int min, int max, int dir)
     {
         //
-        current_speed_x = min;
+        if (current_speed_x == 0)
+        {
+            current_speed_x = min;
+        }
         //
         moveX(dir, current_speed_x);
         //
@@ -269,7 +270,10 @@ public abstract class Sprite
     public void realMoveY(int increment, int min, int max, int dir)
     {
         //
-        current_speed_y = min;
+        if (current_speed_y == 0)
+        {
+            current_speed_y = min;
+        }
         //
         moveY(dir, current_speed_y);
         //
