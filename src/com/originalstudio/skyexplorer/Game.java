@@ -11,6 +11,18 @@ public class Game extends JPanel
 {
 	public static Game control;
 	
+	// SINGLETON
+	private static Menu menu = null;
+	
+	public static Menu getMenu()
+	{
+		if (menu == null)
+		{
+			menu = new Menu();
+		}
+		return menu;
+	}
+	
 	/**
 	 *
 	 */
@@ -34,6 +46,8 @@ public class Game extends JPanel
 	//
 	public Game()
 	{
+		menu = new Menu();
+		
 		control = this;
 		
 		setLayout(new BorderLayout());

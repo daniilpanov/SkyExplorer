@@ -14,20 +14,8 @@ public class Menu extends JWindow
 	 */
 	private static final long serialVersionUID = -4060336903641762950L;
 	
-	// SINGLETON
-	private static Menu inst = null;
-	
-	public static Menu getInstance()
-	{
-		if (inst == null)
-		{
-			inst = new Menu();
-		}
-		return inst;
-	}
-	
 	// 
-	private Menu()
+	public Menu()
 	{
     	setSize(Toolkit.getDefaultToolkit().getScreenSize());
     	
@@ -70,6 +58,7 @@ public class Menu extends JWindow
 		game.setLocation(0, 0);
 		Main.frame.getContentPane().add(game);
 		//
-		Main.frame.repaint();
+		Main.frame.getContentPane().revalidate();
+		Main.frame.getContentPane().repaint();
 	}
 }
