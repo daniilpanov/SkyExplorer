@@ -29,18 +29,22 @@ public class GameMenu extends JWindow {
 		
 		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
 		
-		JButton resume = new JButton(), exit = new JButton();
+		JButton resume = new JButton(), come_back = new JButton();
 		resume.setBackground(Color.BLUE);
-		exit.setBackground(Color.BLUE);
-		
-		Functions.buttonWithIcon(Img.b_resume, resume);
-		Functions.buttonWithIcon(Img.b_exit, exit);
-		// ÐÎÇÎÂÛÉ ÊÓÑÜ
+		come_back.setBackground(Color.BLUE);
+		//
+		resume.setFocusable(false);
+		come_back.setFocusable(false);
+		Main.frame.requestFocus();
+		//
+		Functions.buttonWithIcon(Img.b_resume_game_menu, resume);
+		Functions.buttonWithIcon(Img.b_exit_game_menu, come_back);
+		// Ð ÐžÐ—ÐžÐ’Ð«Ð™ ÐšÐ£Ð¡Ð¬
 		panel.add(resume);
-		panel.add(exit);
+		panel.add(come_back);
 		
 		resume.addActionListener(e -> resume());
-		exit.addActionListener(e -> exit());
+		come_back.addActionListener(e -> exit());
 		
 		add(panel);
 	}
@@ -61,7 +65,7 @@ public class GameMenu extends JWindow {
 	}
 	
 	//
-	public void make_hide()
+	private void make_hide()
 	{
 		setVisible(false);
 	}

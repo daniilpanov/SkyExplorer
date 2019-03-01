@@ -69,5 +69,7 @@ public class Menu extends JWindow
 		JPanel game = new Game();
 		game.setLocation(0, 0);
 		Main.frame.getContentPane().add(game);
+		//
+		Main.frame.repaint();
 	}
 }

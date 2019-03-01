@@ -39,7 +39,7 @@ public class Game extends JPanel
 		setLayout(new BorderLayout());
 		JPanel game_menu = new JPanel();
 		JButton open_menu = new JButton();
-		buttonWithIcon(b_top_menu, open_menu);
+		buttonWithIcon(b_go_to_game_menu, open_menu);
 		game_menu.add(open_menu);
 		
 		open_menu.addActionListener(e -> GameMenu.getInstance().make_show());

@@ -118,8 +118,8 @@ public abstract class Sprite
         // обновляем координаты
         this.x = x;
         this.y = y;
-        // и если направление поменялось, то
-        if (dir != direction) // 
+        // и если направление или ось поменялось, то
+        if (dir != direction || axis != this.axis)
         {
             // записываем направление
             this.direction = dir;

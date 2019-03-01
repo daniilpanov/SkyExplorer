@@ -17,8 +17,9 @@ public class Img
 			bg = getImg("bg.png"),
 			bg_with_tuman = getImg("bg_with_tuman.jpg");
 			//
-	public static final Icon b_top_menu = getIcon("b_open_game_menu.png"),
-			b_resume = getIcon("b_resume.png"), b_exit = getIcon("b_exit.png");
+	public static final Icon b_go_to_game_menu = getIcon("b_open_game_menu.png"),
+			b_resume_game_menu = getIcon("b_resume.png"),
+			b_exit_game_menu = getIcon("b_exit_at_game_menu.png");
 	
 	private Img()
 	{
