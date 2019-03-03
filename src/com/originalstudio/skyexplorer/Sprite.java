@@ -29,17 +29,19 @@ public abstract class Sprite
             // Разгон
             current_speed_x = 0, current_speed_y = 0;
     
-    private int[][] border_points = new int[4][2];
-    
     // 
     public static final int X = 1, Y = 2;
     
     private boolean reset_speed;
     
+    private AreaBorder border = null;
+    private Bg background = null;
+    
     // МЕТОДЫ ДЛЯ ЭЛЕМЕНТАРНЫХ ДЕЙСТВИЙ
     
     // Конструктор:
-    public Sprite(int x, int y, Image sprite_r, Image sprite_l, Image sprite_t, Image sprite_b, Component parent, boolean reset_speed)
+    public Sprite(int x, int y, Image sprite_r, Image sprite_l, Image sprite_t, Image sprite_b,
+                  Component parent, boolean reset_speed)
     {
         // Задаём значение свойствам
         this.sprite_r = sprite_r;
@@ -56,10 +58,12 @@ public abstract class Sprite
     // Устанавливаем границы, за которые спрайт не может выходить (просто setter)
     public void setBorders(int min_x, int min_y, int max_x, int max_y)
     {
-    	border_points[0][0] = min_x; border_points[0][1] = min_y;
-    	border_points[1][0] = min_x; border_points[1][1] = max_y;
-    	border_points[2][0] = max_x; border_points[2][1] = min_y;
-    	border_points[3][0] = max_x; border_points[3][0] = max_y;
+    	border = new AreaBorder(this, parent, new int[]{min_x, min_y}, new int[]{max_x, max_y});
+    }
+    //
+    public void setArea(Bg bg)
+    {
+        background = bg;
     }
     
     // Рисование спрайта:
@@ -134,19 +138,34 @@ public abstract class Sprite
         }
     }
     // с перерисовкой по-умолчанию:
-    public void update(int x, int y, int dir_x, int dir_y)
+    public void update(int x, int y, int dir, int axis)
     {
-        this.update(x, y, dir_x, dir_y, true);
+        this.update(x, y, dir, axis, true);
     }
     // только для движений вправо-влево
     public void moveX(int dir, int l)
     {
-        this.update(x + l * dir, y, dir, X);
+        if (border.checkMovingOpportunity(l, dir, X))
+        {
+            background.updateBgX(l, dir);
+        }
+        else
+        {
+            this.update(x + l * dir, y, dir, X);
+        }
     }
     // только для движений вверх-вниз
     public void moveY(int dir, int l)
     {
-        this.update(x, y + l * dir, dir, Y);
+        
+        if (border.checkMovingOpportunity(l, dir, Y))
+        {
+            background.updateBgY(l, dir);
+        }
+        else
+        {
+            this.update(x, y + l * dir, dir, Y);
+        }
     }
     
     // Инициализация таймера:

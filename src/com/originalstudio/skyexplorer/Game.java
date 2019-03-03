@@ -7,7 +7,7 @@ import java.awt.*;
 import static com.originalstudio.skyexplorer.Img.*;
 import static com.originalstudio.skyexplorer.Functions.*;
 
-public class Game extends JPanel
+public class Game extends LiveBackground
 {
     // SINGLETON
     private static GameMenu game_menu = null;
@@ -30,20 +30,8 @@ public class Game extends JPanel
 	private static final long serialVersionUID = 6693183466444000235L;
 	
 	private StarShip starShip = new StarShip(this);
-	private int bg_w = bg.getWidth(null), bg_h = bg.getHeight(null);
+	
 	private int[] ship_fake_coordinates = new int[2];
-	private int[][] bg_x =
-				{
-						{-bg_w, 0, bg_w},
-						{-bg_w, 0, bg_w},
-						{-bg_w, 0, bg_w}
-				},
-			bg_y =
-				{
-						{-bg_h, -bg_h, -bg_h},
-						{0, 0, 0},
-						{bg_h, bg_h, bg_h}
-				};
 
 	//
 	public Game()
@@ -51,6 +39,10 @@ public class Game extends JPanel
 	    getGameMenu();
 	    
 		control = this;
+		
+		//
+        starShip.setBorders(getWidth(), getHeight(), Main.frame.getWidth()-getWidth(), Main.frame.getHeight()-getHeight());
+		starShip.setArea(this);
 		
 		//
         ship_fake_coordinates[0] = starShip.x;
