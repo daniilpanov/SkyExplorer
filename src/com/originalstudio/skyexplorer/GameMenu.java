@@ -7,25 +7,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-public class GameMenu extends JWindow {
-
-	// SINGLETON
-	private static GameMenu instance = null;
-	
-	public static GameMenu getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new GameMenu();
-		}
-		
-		return instance;
-	}
-	
+public class GameMenu extends JWindow
+{
 	private JButton resume = new JButton(), come_back = new JButton();
 	
 	//
-	private GameMenu()
+	public GameMenu()
 	{
 		setBounds((Main.frame.getWidth()-500)/2, (Main.frame.getHeight()-250)/2, 500, 250);
 		
@@ -62,7 +49,7 @@ public class GameMenu extends JWindow {
 		Main.frame.getContentPane().removeAll();
 		Main.frame.getContentPane().revalidate();
         Main.frame.getContentPane().repaint();
-		Game.getMenu().showMenu();
+		Menu.getInstance().showMenu();
 	}
 	
 	//

@@ -9,19 +9,20 @@ import static com.originalstudio.skyexplorer.Functions.*;
 
 public class Game extends JPanel
 {
+    // SINGLETON
+    private static GameMenu game_menu = null;
+    
+    public static GameMenu getGameMenu()
+    {
+        if (game_menu == null)
+        {
+            game_menu = new GameMenu();
+        }
+        
+        return game_menu;
+    }
+    
 	public static Game control;
-	
-	// SINGLETON
-	private static Menu menu = null;
-	
-	public static Menu getMenu()
-	{
-		if (menu == null)
-		{
-			menu = new Menu();
-		}
-		return menu;
-	}
 	
 	/**
 	 *
@@ -46,8 +47,8 @@ public class Game extends JPanel
 	//
 	public Game()
 	{
-		menu = new Menu();
-		
+	    getGameMenu();
+	    
 		control = this;
 		
 		setLayout(new BorderLayout());
@@ -56,7 +57,7 @@ public class Game extends JPanel
 		buttonWithIcon(b_go_to_game_menu, open_menu);
 		game_menu.add(open_menu);
 		
-		open_menu.addActionListener(e -> GameMenu.getInstance().make_show());
+		open_menu.addActionListener(e -> getGameMenu().make_show());
 		
 		this.add(game_menu, BorderLayout.NORTH);
 	}

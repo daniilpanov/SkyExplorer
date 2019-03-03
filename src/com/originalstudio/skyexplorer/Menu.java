@@ -9,13 +9,25 @@ import javax.swing.JWindow;
 
 public class Menu extends JWindow
 {
+	// SINGLETON
+	private static Menu instance = null;
+	
+	public static Menu getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new Menu();
+		}
+		return instance;
+	}
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4060336903641762950L;
 	
 	// 
-	public Menu()
+	private Menu()
 	{
     	setSize(Toolkit.getDefaultToolkit().getScreenSize());
     	

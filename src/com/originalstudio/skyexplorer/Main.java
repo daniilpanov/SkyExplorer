@@ -36,6 +36,6 @@ public class Main extends JFrame
     	setExtendedState(MAXIMIZED_BOTH);
     	setVisible(true);
     	//
-    	Game.getMenu().showMenu();
+    	Menu.getInstance().showMenu();
     }
 }
