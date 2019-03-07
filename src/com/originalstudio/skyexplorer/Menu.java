@@ -1,11 +1,12 @@
 package com.originalstudio.skyexplorer;
 
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
+
+import static com.originalstudio.skyexplorer.Img.*;
 
 public class Menu extends JWindow
 {
@@ -31,18 +32,27 @@ public class Menu extends JWindow
 	{
     	setSize(Toolkit.getDefaultToolkit().getScreenSize());
     	
-    	JPanel panel = new JPanel(new GridLayout(4, 1, 15, 15));
+    	JPanel
+				menu = new JPanel(new GridLayout(4, 1, 15, 15)),
+				main = new JPanel(new BorderLayout());
     	
-    	JButton play = new JButton("PLAY"),
-    			settings = new JButton("SETTINGS"),
-    			help = new JButton("HELP"),
-    			exit = new JButton("EXIT");
-    	
-    	panel.add(play);
-    	panel.add(settings);
-    	panel.add(help);
-    	panel.add(exit);
-    	
+    	JButton play = new JButton(), // PLAY
+    			settings = new JButton(), // SETTINGS
+    			help = new JButton(), // HELP
+    			exit = new JButton(); // EXIT
+
+		play.setIcon(b_play);
+		settings.setIcon(b_settings);
+		help.setIcon(b_help);
+		exit.setIcon(b_exit);
+
+    	menu.add(play);
+    	menu.add(settings);
+    	menu.add(help);
+    	menu.add(exit);
+
+    	main.add(menu, BorderLayout.WEST);
+
     	play.addActionListener(e -> play());
     	play.setFocusable(false);
     	
@@ -54,7 +64,7 @@ public class Menu extends JWindow
     	
     	Main.frame.requestFocus();
     	
-    	getContentPane().add(panel);
+    	getContentPane().add(main);
 	}
 	
 	public void showMenu()
