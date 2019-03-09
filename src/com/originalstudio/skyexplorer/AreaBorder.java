@@ -6,7 +6,7 @@ public class AreaBorder
 {
     private Sprite sprite;
     private Component area;
-    private Wall[] walls = new Wall[4];
+    private Point[] points = new Point[4];
     
     public AreaBorder(Sprite sprite, Component area, int[] p1, int[] p2)
     {
@@ -14,16 +14,10 @@ public class AreaBorder
         this.sprite = sprite;
         this.area = area;
         // Точки:
-        Point[] points = new Point[4];
         points[0] = new Point(p1[0], p1[1]); // лево-верх
-        points[1] = new Point(p1[0], p2[1]); // право-верх
-        points[2] = new Point(p2[0], p1[1]); // лево-низ
+        points[1] = new Point(p2[0], p1[1]); // право-верх
+        points[2] = new Point(p1[0], p2[1]); // лево-низ
         points[3] = new Point(p2[0], p2[1]); // право-низ
-        // Стены
-        walls[0] = new Wall(points[0], points[1].x, Wall.AXIS_X); // верх
-        walls[1] = new Wall(points[0], points[2].y, Wall.AXIS_Y); // лево
-        walls[2] = new Wall(points[1], points[3].y, Wall.AXIS_Y); // право
-        walls[3] = new Wall(points[2], points[3].x, Wall.AXIS_X); // низ
     }
     
     private class Point
@@ -36,101 +30,55 @@ public class AreaBorder
         }
     }
     
-    private class Wall
-    {
-        public static final int AXIS_X = 1, AXIS_Y = 2;
-        int x, y, length, axis;
-        
-        Wall(Point start, int end, int axis)
-        {
-            x = start.x;
-            y = start.y;
-            length = end;
-            this.axis = axis;
-        }
-        
-        boolean checkMovingOpportunity(int x, int y, int axis, int dir)
-        {
-            boolean opportunity = false;
-            
-            // Если оси одинаковые, то двигаться точно будет можно.
-            if (axis != this.axis)
-            {
-                // Проверяем направление
-                if (dir > 0)
-                {
-                    if (this.axis == AXIS_X)
-                    {
-                        if (y >= this.y)
-                        {
-                            if (x >= this.x && x <= this.x + this.length)
-                            {
-                                opportunity = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (x >= this.x)
-                        {
-                            if (y >= this.x && x <= this.y + this.length)
-                            {
-                                opportunity = true;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (this.axis == AXIS_X)
-                    {
-                        if (y <= this.y)
-                        {
-                            if (x >= this.x && x <= this.x + this.length)
-                            {
-                                opportunity = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (x <= this.x)
-                        {
-                            if (y >= this.x && x <= this.y + this.length)
-                            {
-                                opportunity = true;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            return opportunity;
-        }
-    }
-    
-    public boolean checkMovingOpportunity(int length, int dir, int axis)
+    public boolean checkMovingOpportunity(int pos_x, int pos_y, int length, int dir, int axis)
     {
         boolean opportunity = false;
-        
-        for (Wall wall : walls)
+
+        if (axis == Sprite.X)
         {
-            if (axis == Wall.AXIS_X)
-            {
-                if (wall.checkMovingOpportunity(sprite.x + length * dir, sprite.y, axis, dir))
-                {
-                    opportunity = true;
-                    break;
-                }
-            }
-            else
-            {
-                if (wall.checkMovingOpportunity(sprite.x, sprite.y + length * dir, axis, dir))
-                {
-                    opportunity = true;
-                    break;
-                }
-            }
+        	if (dir > 0)
+        	{
+        		if (pos_x + length >= points[1].x)
+        		{
+        			if (pos_y >= points[1].y && pos_y <= points[3].y)
+        			{
+        				opportunity = true;
+        			}
+        		}
+        	}
+        	else
+        	{
+        		if (pos_x - length <= points[0].x)
+        		{
+        			if (pos_y >= points[0].y && pos_y <= points[2].y)
+        			{
+        				opportunity = true;
+        			}
+        		}
+        	}
+        }
+        else
+        {
+			if (dir > 0)
+        	{
+        		if (pos_y + length >= points[1].y)
+        		{
+					if (pos_x >= points[2].x && pos_x <= points[3].x)
+        			{
+						opportunity = true;
+        			}
+        		}
+        	}
+        	else
+        	{
+        		if (pos_y - length <= points[0].y)
+        		{
+        			if (pos_x >= points[0].x && pos_x <= points[1].x)
+        			{
+        				opportunity = true;
+        			}
+        		}
+        	}
         }
         
         return opportunity;

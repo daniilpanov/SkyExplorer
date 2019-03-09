@@ -145,7 +145,7 @@ public abstract class Sprite
     // только для движений вправо-влево
     public void moveX(int dir, int l)
     {
-        if (border.checkMovingOpportunity(l, dir, X))
+        if (border.checkMovingOpportunity(x, y, l, dir, X))
         {
             background.updateBgX(l, dir);
         }
@@ -157,8 +157,7 @@ public abstract class Sprite
     // только для движений вверх-вниз
     public void moveY(int dir, int l)
     {
-        
-        if (border.checkMovingOpportunity(l, dir, Y))
+        if (border.checkMovingOpportunity(x, y, l, dir, Y))
         {
             background.updateBgY(l, dir);
         }
