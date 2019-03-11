@@ -1,0 +1,12 @@
+TASKS LIST:
+17:28 at 11.03.2019
+FIXME: после движения по оси Y при движении вправо фон сдвигается <u>с опозданием</u>
+TODO: нормальное передвижение фона по оси Y
+FIXME: при передвижении фона вправо корабль <u>скрывается за пределами поля</u>
+TODO: ВРАГ
+TODO: стрельба
+TODO: fake coordinates of the star ship (print at down-right place)
+TODO: random generation of planets
+TODO: ВЫСАДКА НА ПЛВНЕТЫ
+TODO: мини-карта
+---------
