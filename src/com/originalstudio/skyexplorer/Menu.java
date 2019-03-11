@@ -33,8 +33,17 @@ public class Menu extends JWindow
     	setSize(Toolkit.getDefaultToolkit().getScreenSize());
     	
     	JPanel
+                //
 				menu = new JPanel(new GridLayout(4, 1, 15, 15)),
-				main = new JPanel(new BorderLayout());
+                //
+				main = new JPanel(new BorderLayout())
+                {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+                        g.drawImage(start_game, 0, 0, null);
+                    }
+                };
     	
     	JButton play = new JButton(), // PLAY
     			settings = new JButton(), // SETTINGS
