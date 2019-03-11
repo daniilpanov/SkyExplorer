@@ -1,6 +1,9 @@
 package com.newlightstudio.skyexplorer;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
