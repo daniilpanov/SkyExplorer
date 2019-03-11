@@ -1,4 +1,4 @@
-package com.originalstudio.skyexplorer;
+package com.newlightstudio.skyexplorer;
 
 import java.awt.Color;
 import java.awt.GridLayout;

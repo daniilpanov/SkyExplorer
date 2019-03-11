@@ -1,9 +1,7 @@
-package com.originalstudio.skyexplorer;
+package com.newlightstudio.skyexplorer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-
-import static com.originalstudio.skyexplorer.Img.*;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -13,7 +11,7 @@ public class StarShip extends Sprite
 	public StarShip(Component parent)
 	{
 		super(Main.frame.getWidth()/2, Main.frame.getHeight()/2,
-                        starship_r, starship_l, starship_t, starship_b,
+                        Img.starship_r, Img.starship_l, Img.starship_t, Img.starship_b,
                         parent, true);
 		
 		//

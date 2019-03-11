@@ -1,4 +1,4 @@
-package com.originalstudio.skyexplorer;
+package com.newlightstudio.skyexplorer;
 
 interface Bg
 {

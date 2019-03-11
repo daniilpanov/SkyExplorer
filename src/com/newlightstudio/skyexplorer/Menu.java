@@ -1,12 +1,10 @@
-package com.originalstudio.skyexplorer;
+package com.newlightstudio.skyexplorer;
 
 import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
-
-import static com.originalstudio.skyexplorer.Img.*;
 
 public class Menu extends JWindow
 {
@@ -41,7 +39,7 @@ public class Menu extends JWindow
                     @Override
                     protected void paintComponent(Graphics g) {
                         super.paintComponent(g);
-                        g.drawImage(start_game, 0, 0, null);
+                        g.drawImage(Img.start_game, 0, 0, null);
                     }
                 };
     	
@@ -50,10 +48,10 @@ public class Menu extends JWindow
     			help = new JButton(), // HELP
     			exit = new JButton(); // EXIT
 
-		play.setIcon(b_play);
-		settings.setIcon(b_settings);
-		help.setIcon(b_help);
-		exit.setIcon(b_exit);
+		play.setIcon(Img.b_play);
+		settings.setIcon(Img.b_settings);
+		help.setIcon(Img.b_help);
+		exit.setIcon(Img.b_exit);
 
     	menu.add(play);
     	menu.add(settings);

@@ -1,8 +1,8 @@
-package com.originalstudio.skyexplorer;
+package com.newlightstudio.skyexplorer;
 
 import javax.swing.*;
 
-import static com.originalstudio.skyexplorer.Img.bg;
+import static com.newlightstudio.skyexplorer.Img.bg;
 
 public class LiveBackground extends JPanel implements Bg
 {

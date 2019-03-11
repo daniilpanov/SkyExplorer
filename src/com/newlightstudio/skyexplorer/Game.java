@@ -1,11 +1,11 @@
-package com.originalstudio.skyexplorer;
+package com.newlightstudio.skyexplorer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.*;
 
-import static com.originalstudio.skyexplorer.Img.*;
-import static com.originalstudio.skyexplorer.Functions.*;
+import static com.newlightstudio.skyexplorer.Img.*;
+import static com.newlightstudio.skyexplorer.Functions.*;
 
 public class Game extends LiveBackground
 {
