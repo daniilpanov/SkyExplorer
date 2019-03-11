@@ -41,7 +41,7 @@ public class Game extends LiveBackground
 		control = this;
 		
 		//
-        starShip.setBorders(getWidth(), getHeight(), Main.frame.getWidth()-getWidth(), Main.frame.getHeight()-getHeight());
+        starShip.setBorders();
 		starShip.setArea(this);
 		
 		//

@@ -56,9 +56,9 @@ public abstract class Sprite
     }
     
     // Устанавливаем границы, за которые спрайт не может выходить (просто setter)
-    public void setBorders(int min_x, int min_y, int max_x, int max_y)
+    public void setBorders()
     {
-    	border = new AreaBorder(this, parent, new int[]{min_x, min_y}, new int[]{max_x, max_y});
+    	border = new AreaBorder(parent);
     }
     //
     public void setArea(Bg bg)

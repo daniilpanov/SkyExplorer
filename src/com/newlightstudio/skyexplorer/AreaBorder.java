@@ -1,23 +1,22 @@
 package com.newlightstudio.skyexplorer;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 public class AreaBorder
 {
-    private Sprite sprite;
-    private Component area;
     private Point[] points = new Point[4];
     
-    public AreaBorder(Sprite sprite, Component area, int[] p1, int[] p2)
+    public AreaBorder(@NotNull Component parent)
     {
-        //
-        this.sprite = sprite;
-        this.area = area;
+    	final int x = parent.getX(), y = parent.getY(),
+				e_x = parent.getWidth(), e_y = parent.getHeight();
         // Точки:
-        points[0] = new Point(p1[0], p1[1]); // лево-верх
-        points[1] = new Point(p2[0], p1[1]); // право-верх
-        points[2] = new Point(p1[0], p2[1]); // лево-низ
-        points[3] = new Point(p2[0], p2[1]); // право-низ
+        points[0] = new Point(x, y); // лево-верх
+        points[1] = new Point(e_x, y); // право-верх
+        points[2] = new Point(x, e_y); // лево-низ
+        points[3] = new Point(e_x, e_y); // право-низ
     }
     
     private class Point
