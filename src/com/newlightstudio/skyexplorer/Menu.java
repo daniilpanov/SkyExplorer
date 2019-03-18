@@ -14,7 +14,7 @@ public class Menu extends JWindow
 	// SINGLETON
 	private static Menu instance = null;
 	
-	public static Menu getInstance()
+	static Menu getInstance()
 	{
 		if (instance == null)
 		{
@@ -37,14 +37,16 @@ public class Menu extends JWindow
                 //
 				menu = new JPanel(new GridLayout(4, 1, 15, 15)),
                 //
-				main = new JPanel(new BorderLayout())
-                {
-                    @Override
-                    protected void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-                        g.drawImage(Img.start_game, 0, 0, null);
-                    }
-                };
+				main = new JPanel(new BorderLayout()),
+				//
+				trailer = new JPanel()
+				{
+					@Override
+					protected void paintComponent(Graphics g) {
+						super.paintComponent(g);
+						g.drawImage(Img.start_game, 0, 0, null);
+					}
+				};
     	
     	JButton play = new JButton(), // PLAY
     			settings = new JButton(), // SETTINGS
@@ -61,7 +63,10 @@ public class Menu extends JWindow
     	menu.add(help);
     	menu.add(exit);
 
+    	trailer.setSize(Img.start_game.getWidth(null), Img.start_game.getHeight(null));
+
     	main.add(menu, BorderLayout.WEST);
+    	main.add(trailer, BorderLayout.CENTER);
 
     	play.addActionListener(e -> play());
     	play.setFocusable(false);
@@ -77,12 +82,12 @@ public class Menu extends JWindow
     	getContentPane().add(main);
 	}
 	
-	public void showMenu()
+	void showMenu()
 	{
 		setVisible(true);
 	}
 	
-	public void play()
+	void play()
 	{
 		setVisible(false);
 		//

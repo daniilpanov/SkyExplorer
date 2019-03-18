@@ -5,25 +5,25 @@ import java.awt.Dimension;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-public class Functions
+class Functions
 {
 
 	private Functions()
 	{
 	}
 	
-	public static int random(int min, int max)
+	static int random(int min, int max)
 	{
-		return min + (int)(Math.random() * max);
+		return (min < max) ? (min + (int)(Math.random() * max)) : max;
 	}
 	
-	public static void buttonWithIcon(Icon icon, JButton button)
+	static void buttonWithIcon(Icon icon, JButton button)
 	{
 		button.setPreferredSize(new Dimension(icon.getIconWidth()-1, icon.getIconHeight()));
 		button.setIcon(icon);
 	}
 	
-	public static int[] replaceCoordinates(int[] array, int i, int to)
+	static int[] replaceCoordinates(int[] array, int i, int to)
 	{
 		int tmp = array[to];
 		array[to] = array[i];

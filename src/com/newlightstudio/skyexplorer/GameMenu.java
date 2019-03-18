@@ -7,18 +7,18 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-public class GameMenu extends JWindow
+class GameMenu extends JWindow
 {
-	private JButton resume = new JButton(), come_back = new JButton();
-	
 	//
-	public GameMenu()
+	GameMenu()
 	{
 		setBounds((Main.frame.getWidth()-500)/2, (Main.frame.getHeight()-250)/2, 500, 250);
 		
 		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
-		
+
+		JButton resume = new JButton();
 		resume.setBackground(Color.BLUE);
+		JButton come_back = new JButton();
 		come_back.setBackground(Color.BLUE);
 		//
 		resume.setFocusable(false);
@@ -27,7 +27,7 @@ public class GameMenu extends JWindow
 		//
 		Functions.buttonWithIcon(Img.b_resume_game_menu, resume);
 		Functions.buttonWithIcon(Img.b_exit_game_menu, come_back);
-		// РОЗОВЫЙ КУСЬ
+		//
 		panel.add(resume);
 		panel.add(come_back);
 		
@@ -43,7 +43,7 @@ public class GameMenu extends JWindow
 		make_hide();
 	}
 	
-	private void exit()
+	void exit()
 	{
 		make_hide();
 		Main.frame.getContentPane().removeAll();
@@ -60,7 +60,7 @@ public class GameMenu extends JWindow
 		Main.frame.requestFocus();
 	}
 	
-	public void make_show()
+	void make_show()
 	{
 		setVisible(true);
 	}

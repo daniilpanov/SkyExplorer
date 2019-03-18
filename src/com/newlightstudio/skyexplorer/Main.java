@@ -10,19 +10,16 @@ import javax.swing.JFrame;
  */
 public class Main extends JFrame
 {
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 7008553333134883994L;
 	
 	// Делаем доступным объект фрейма из любого класса
-	public static JFrame frame;
+	static JFrame frame;
 
 	// 
 	public static void main(String[] args)
     {
         EventQueue.invokeLater(Main::new);
-    }
+	}
     
     private Main()
     {
