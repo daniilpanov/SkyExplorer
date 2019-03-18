@@ -40,35 +40,26 @@ public class Enemy extends Sprite
 
 	private void move()
 	{
-		int new_direction;
-
-        if (x > player.x)
-        {
-            new_direction = -1;
-        }
-        else
-        {
-            new_direction = 1;
-        }
-
-        min_speed = random(min_speed, 15);
-        int l = min_speed * new_direction;
-
-        moveX(new_direction, l);
-
-        parent.repaint();
+		aroundPlayer();
+		
+		int new_direction = -1;
+		
+		min_speed = random(min_speed, 15);
+		int l = min_speed * new_direction;
+		
+		moveX(new_direction, l);
+		
+		parent.repaint();
 	}
 
 	boolean aroundPlayer()
     {
         boolean around = false;
-
-        if (x + getWidth() > 0 && x < parent.getWidth())
+		if (x + getWidth() > 0 && x < parent.getWidth())
         {
             around = true;
-
-            if (x + getWidth() > player.x && x < player.x + player.getWidth()
-                && y + getHeight() > player.y && y < player.y + player.getHeight())
+            
+			if (x + getWidth() >= player.x && x <= player.x + player.getWidth())
             {
                 Game.control.die(
                         "<html><head></head>" +
