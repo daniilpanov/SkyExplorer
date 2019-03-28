@@ -17,9 +17,10 @@ class GameMenu extends JWindow
 		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
 
 		JButton resume = new JButton();
-		resume.setBackground(Color.BLUE);
+		Color bg = new Color(182, 255, 0);
+		resume.setBackground(bg);
 		JButton come_back = new JButton();
-		come_back.setBackground(Color.BLUE);
+		come_back.setBackground(bg);
 		//
 		resume.setFocusable(false);
 		come_back.setFocusable(false);
@@ -43,6 +44,7 @@ class GameMenu extends JWindow
 		make_hide();
 	}
 	
+	// Выход из игры (игрового процесса)
 	void exit()
 	{
 		make_hide();

@@ -38,7 +38,7 @@ class AreaBorder
         {
 			if (dir > 0)
         	{
-        		if (pos_y + length >= max_y)
+        		if (pos_y + length <= max_y)
         		{
         			opportunity = true;
         		}
@@ -46,7 +46,7 @@ class AreaBorder
         	else
         	{
 				int min_y = 0;
-				if (pos_y - length <= min_y)
+				if (pos_y - length >= min_y)
         		{
         			opportunity = true;
         		}

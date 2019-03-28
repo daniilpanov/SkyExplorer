@@ -16,7 +16,7 @@ public class Enemy extends Sprite
 
     Enemy(Component parent, Sprite player)
 	{
-		super(0, 0, enemy_r, enemy_l, parent, true);
+		super(0, 0, enemy_l, parent, true);
 
 		min_w = parent.getWidth();
 		y = (parent.getHeight() - getHeight()) / 2;
@@ -59,7 +59,8 @@ public class Enemy extends Sprite
         {
             around = true;
             
-			if (x + getWidth() >= player.x && x <= player.x + player.getWidth())
+			if (x + getWidth() >= player.x && x <= player.x + player.getWidth()
+			    && y + getHeight() >= player.y && y <= player.y + player.getHeight())
             {
                 Game.control.die(
                         "<html><head></head>" +
@@ -80,17 +81,6 @@ public class Enemy extends Sprite
     {
 
     }
-
-	@Override
-	public void update(int x, int y, int dir, boolean repaint)
-	{
-		super.update(x, y, dir, repaint);
-
-		if (dir != direction)
-		{
-			min_speed = 1;
-		}
-	}
 
 	@Override
 	protected void checkingKey(KeyEvent e)

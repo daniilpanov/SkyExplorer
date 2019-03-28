@@ -27,7 +27,7 @@ class LiveBackground extends JPanel
         }
         if (bg_x[0] + bg_w >= 0 || bg_x[2] <= 0)
         {
-        	Game.control.shiftX(dir);
+        	Game.control.shiftX();
         }
         repaint();
     }

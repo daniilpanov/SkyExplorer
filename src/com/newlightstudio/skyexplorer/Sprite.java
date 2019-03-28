@@ -8,15 +8,10 @@ public abstract class Sprite
 {
     // Координаты спрайта
     public int x, y;
-    // Картинки спрайта
-    private Image sprite_r,
-            sprite_l;
     // Текущая картинка спрайта
     public Image sprite;
     // На чём рисуется спрайт
     public Component parent;
-    // Направление спрайта (1 - право, -1 - лево)
-    public int direction = 1;
     // Разгон
     private int current_speed_x = 0;
     
@@ -31,12 +26,9 @@ public abstract class Sprite
     // МЕТОДЫ ДЛЯ ЭЛЕМЕНТАРНЫХ ДЕЙСТВИЙ
     
     // Конструктор:
-    public Sprite(int x, int y, Image sprite_r, Image sprite_l, Component parent, boolean reset_speed)
+    public Sprite(int x, int y, Image sprite, Component parent, boolean reset_speed)
     {
-        // Задаём значение свойствам
-        this.sprite_r = sprite_r;
-        this.sprite_l = sprite_l;
-        this.sprite = sprite_l;
+        this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.parent = parent;
@@ -58,7 +50,8 @@ public abstract class Sprite
     public void render(Graphics g)
     {
         // если есть картинка,
-        if (sprite != null) {
+        if (sprite != null)
+        {
             // рисуем спрайт
             g.drawImage(sprite, x, y, null);
         }
@@ -74,53 +67,25 @@ public abstract class Sprite
         return sprite.getHeight(null);
     }
     
-    // Смена картинки спрайта:
-    public void updateSprite(Image sprite, Image sprite_r, Image sprite_l)
-    {
-        // задаём новые картинки
-        this.sprite = sprite;
-        this.sprite_r = sprite_r;
-        this.sprite_l = sprite_l;
-        // и перерисовываем
-        parent.repaint();
-    }
-    
-    // Смена <u>текущей</u> картинки спрайта:
-    public void updateCurrentSprite(Image sprite)
-    {
-        // задаём новую картинку
-        this.sprite = sprite;
-        // и перерисовываем
-        parent.repaint();
-    }
-    
     // БОЛЕЕ СЛОЖНЫЕ МЕТОДЫ
     
     // Обновление координат и направления спрайта
     // с флагом - надо ли перерисовывать или нет:
-    public void update(int x, int y, int dir, boolean repaint)
+    public void update(int x, int y, boolean repaint)
     {
         // обновляем координаты
         this.x = x;
         this.y = y;
-        // и если направление или ось поменялось, то
-        if (dir != direction)
-        {
-            // записываем направление
-            this.direction = dir;
-            // и обновляем картинку
-            updateCurrentSprite((dir < 0) ? sprite_l : sprite_r);
-        }
         // и если надо - перерисовываем
-        else if (repaint)
+        if (repaint)
         {
             parent.repaint();
         }
     }
     // с перерисовкой по-умолчанию:
-    public void update(int x, int y, int dir)
+    public void update(int x, int y)
     {
-        this.update(x, y, dir, true);
+        this.update(x, y, true);
     }
     // только для движений вправо-влево
     public void moveX(int dir, int l)
@@ -133,12 +98,27 @@ public abstract class Sprite
             }
             else
             {
-                this.update(x + l * dir, y, dir);
+                this.update(x + l * dir, y);
             }
         }
         else
         {
-            this.update(x + l * dir, y, dir);
+            this.update(x + l * dir, y);
+        }
+    }
+    // только для движений вправо-влево
+    public void moveY(int dir, int l)
+    {
+        if (border != null)
+        {
+            if (border.checkMovingOpportunity(x, y, l, dir, Y))
+            {
+                this.update(x, y + l * dir);
+            }
+        }
+        else
+        {
+            this.update(x, y + l * dir);
         }
     }
     

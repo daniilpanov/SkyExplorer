@@ -1,9 +1,6 @@
 package com.newlightstudio.skyexplorer;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -31,43 +28,51 @@ public class Menu extends JWindow
 	// 
 	private Menu()
 	{
-    	setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+		size.height -= 40;
+    	setSize(size);
     	
+    	// Все необходимые панели:
     	JPanel
-                //
-				menu = new JPanel(new GridLayout(4, 1, 15, 15)),
-                //
+				// самая главная панель, на которую помещаются остальные
 				main = new JPanel(new BorderLayout()),
-				//
+				// само меню
+				menu = new JPanel(new GridLayout(4, 1, 15, 15)),
+				// и заставка
 				trailer = new JPanel()
 				{
 					@Override
 					protected void paintComponent(Graphics g) {
+						// (тут сразу пишем, чтоб наша картинка с заставкой рисовалась)
 						super.paintComponent(g);
 						g.drawImage(Img.start_game, 0, 0, null);
 					}
 				};
     	
+    	// Создаём пункты меню:
     	JButton play = new JButton(), // PLAY
     			settings = new JButton(), // SETTINGS
     			help = new JButton(), // HELP
     			exit = new JButton(); // EXIT
-
+		// и устанавливаем на них соответствующие иконки
 		play.setIcon(Img.b_play);
 		settings.setIcon(Img.b_settings);
 		help.setIcon(Img.b_help);
 		exit.setIcon(Img.b_exit);
-
+		// и разумеется, добавляем их на панель меню
     	menu.add(play);
     	menu.add(settings);
     	menu.add(help);
     	menu.add(exit);
-
+		
+    	// Устанавливаем нужный размер панели с заставкой
     	trailer.setSize(Img.start_game.getWidth(null), Img.start_game.getHeight(null));
-
+		// и добавляем все панели на главную
     	main.add(menu, BorderLayout.WEST);
     	main.add(trailer, BorderLayout.CENTER);
 
+    	// Устанавливаем на пункты меню слушатели
+		// а также снимаем возможность фокуса (чтобы работал слушатель клавиатуры)
     	play.addActionListener(e -> play());
     	play.setFocusable(false);
     	

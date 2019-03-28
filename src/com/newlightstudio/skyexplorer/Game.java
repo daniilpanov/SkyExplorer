@@ -10,7 +10,6 @@ public class Game extends LiveBackground
 {
     // SINGLETON
     private static GameMenu game_menu = null;
-    private boolean exit = false;
 
     private static GameMenu getGameMenu()
     {
@@ -25,12 +24,13 @@ public class Game extends LiveBackground
     static Game control;
 
     private static final long serialVersionUID = 6693183466444000235L;
-
+    
     private StarShip starShip;
     Enemy enemy;
 
     //private int[] ship_fake_coordinates = new int[2];
-
+    long score = 0;
+    
     //
     Game()
     {
@@ -59,7 +59,7 @@ public class Game extends LiveBackground
         starShip.addEnemy(enemy);
     }
 
-    void shiftX(int dir)
+    void shiftX()
     {
         bg_x[2] = bg_x[0] - bg_w;
         bg_x = replaceCoordinates(bg_x, 2, 0);
@@ -90,7 +90,12 @@ public class Game extends LiveBackground
         //
         while (i < 2);
 
+        // Рисуем игроков
         starShip.render(g);
-        enemy.render(g);
+        // врага рисуем только тогда, когда он будет в зоне видимости
+        if (enemy.aroundPlayer())
+        {
+            enemy.render(g);
+        }
     }
 }
