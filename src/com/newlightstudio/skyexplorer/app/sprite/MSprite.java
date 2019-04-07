@@ -1,5 +1,6 @@
 package com.newlightstudio.skyexplorer.app.sprite;
 
-public class View
+class MSprite
 {
+    int x, y, width, height;
 }

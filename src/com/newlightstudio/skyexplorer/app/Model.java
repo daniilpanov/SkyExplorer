@@ -1,5 +1,8 @@
 package com.newlightstudio.skyexplorer.app;
 
-public class Model
+import javax.swing.JFrame;
+
+class Model extends JFrame
 {
+
 }

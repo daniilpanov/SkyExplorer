@@ -1,5 +1,8 @@
 package com.newlightstudio.skyexplorer.app;
 
-public class View
+import javax.swing.JPanel;
+
+public class View extends JPanel
 {
+
 }

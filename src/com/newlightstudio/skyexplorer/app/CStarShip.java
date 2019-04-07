@@ -1,5 +1,7 @@
 package com.newlightstudio.skyexplorer.app;
 
-public class CStarShip extends CSprite
+import com.newlightstudio.skyexplorer.app.sprite.CKeyControlSprite;
+
+public class CStarShip extends CKeyControlSprite
 {
 }

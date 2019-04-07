@@ -6,7 +6,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 // STATIC CLASS - DATA OF ALL IMAGES
-class Img
+public class Img
 {
 	/**
 	 * PATH {@link String}
@@ -15,7 +15,7 @@ class Img
 	private static final String PATH = "res/img/";
 
 	// КАРТИНКИ ДЛЯ САМОЙ ИГРЫ (будут показываться во время игрового процесса):
-	static final Image
+	public static final Image
 			// Корабли (разные направления движения)
 			starship_r = getImg("starship_r.png"), // вправо
 			starship_l = getImg("starship_l.png"), // влево
@@ -32,7 +32,7 @@ class Img
 
 
 	// ИКОНКИ ДЛЯ КНОПОК:
-	static final Icon
+	public static final Icon
 			// Игровое меню
 			b_go_to_game_menu = getIcon("b_open_game_menu.png"), // кнопка его открытия
 			b_resume_game_menu = getIcon("b_resume.png"), // продолжить
