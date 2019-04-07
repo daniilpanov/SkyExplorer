@@ -1,4 +1,4 @@
-package com.newlightstudio.skyexplorer;
+package com.newlightstudio.skyexplorer.app;
 
 import java.awt.Image;
 
