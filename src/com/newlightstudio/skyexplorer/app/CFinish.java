@@ -1,5 +1,7 @@
 package com.newlightstudio.skyexplorer.app;
 
-public class CFinish
+import com.newlightstudio.skyexplorer.app.sprite.CSprite;
+
+public class CFinish extends CSprite
 {
 }

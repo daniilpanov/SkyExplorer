@@ -1,13 +1,13 @@
 package com.newlightstudio.skyexplorer.app.menu;
 
-import com.newlightstudio.skyexplorer.app.Img;
-
 import javax.swing.*;
+import java.awt.*;
 
 class VMenu extends JPanel
 {
     VMenu()
     {
+        setLayout(new GridLayout(2, 2));
     }
     
     void createButtonWithImg(Icon icon, JButton button)

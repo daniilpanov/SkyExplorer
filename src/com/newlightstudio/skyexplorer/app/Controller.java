@@ -13,6 +13,7 @@ public class Controller extends Model
         //setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(Main.screen_size);
+        setExtendedState(MAXIMIZED_BOTH);
         
         requestFocus();
         

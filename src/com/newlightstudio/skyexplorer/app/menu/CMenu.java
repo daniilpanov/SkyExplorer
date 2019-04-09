@@ -1,10 +1,10 @@
 package com.newlightstudio.skyexplorer.app.menu;
 
 import com.newlightstudio.skyexplorer.Main;
-import com.newlightstudio.skyexplorer.app.Controller;
 import com.newlightstudio.skyexplorer.app.Img;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class CMenu extends MMenu
 {
@@ -25,9 +25,22 @@ public class CMenu extends MMenu
     
     private CMenu()
     {
+        setLayout(new GridLayout(2, 1));
         //setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(Main.screen_size);
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        add(new JPanel()
+        {
+            @Override
+            protected void paintComponent(Graphics g)
+            {
+                super.paintComponent(g);
+                
+                g.drawImage(Img.start_game, 0, 0, null);
+            }
+        });
         
         view = new VMenu();
         
@@ -54,11 +67,13 @@ public class CMenu extends MMenu
         play.setFocusable(false);
         settings.setFocusable(false);
         help.setFocusable(false);
+        
+        getContentPane().add(view);
     }
     
     private void play()
     {
-    
+        Main.switcher();
     }
     
     private void settings()
