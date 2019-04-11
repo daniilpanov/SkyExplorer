@@ -142,7 +142,7 @@ public class MSettings extends JFrame
                 
                 set_value += "}";
                 
-                tmp_value = set_value.substring(1, tmp_value.length()-1);
+                tmp_value = set_value.substring(1, set_value.length()-1);
                 
                 elem_of_cash_multi_as_array = tmp_value.split(", ");
 

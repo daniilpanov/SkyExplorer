@@ -10,14 +10,18 @@ public class TestConfig extends MSettings
         {
             System.out.println(cash.get(i)[0] + "&" + cash.get(i)[1] + " - {");
             
-            for (int j = 0; j < cash_multi.size(); j++)
+            if (cash_multi.get(i) != null)
             {
-                if (cash_multi.get(i) == null)
+                for (int j = 0; j < cash_multi.get(i).length; j++)
                 {
-                    break;
+                    if (cash_multi.get(i) == null)
+                    {
+                        System.out.println("ok");
+                        break;
+                    }
+                    System.out.println(i + " " + j);
+                    System.out.print(cash_multi.get(i)[j]);
                 }
-                
-                System.out.print(cash_multi.get(i)[j]);
             }
     
             System.out.println("}");
