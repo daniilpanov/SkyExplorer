@@ -5,21 +5,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MSettings extends JFrame
+class MSettings extends JFrame
 {
     private File config;
     private FileReader config_reader;
     private FileWriter config_editor;
     private Scanner config_scanner;
     
-    protected ArrayList<String[]> cash = new ArrayList<>(),
-            fixed = new ArrayList<>();
-    
-    protected ArrayList<String[]> cash_multi = new ArrayList<>();
+    private ArrayList<String[]> cash = new ArrayList<>(),
+            fixed = new ArrayList<>(),
+            cash_multi = new ArrayList<>();
     
     private ArrayList<String> errors = new ArrayList<>();
     
-    protected MSettings()
+    MSettings()
     {
         if (!initConfigFile())
         {
@@ -116,31 +115,51 @@ public class MSettings extends JFrame
             return false;
         }
         
-        boolean res = false;
+        boolean res = true;
+        StringBuilder settings_content = new StringBuilder();
         
+        for (String[] part_of_cash : cash)
+        {
+            settings_content.append(part_of_cash[0]).append(": ").append(part_of_cash[1]);
+        }
         
+        String content = settings_content.toString();
         
-        return false;
+        try
+        {
+            config_editor.write(content);
+            config_editor.flush();
+        }
+        catch (IOException e)
+        {
+            res = false;
+            e.printStackTrace();
+        }
+    
+    
+        return res;
     }
     
     private void initCash()
     {
-        String set_name, set_value, tmp_value;
+        String set_name;
+        StringBuilder set_value;
+        String tmp_value;
         String[] elem_of_cash_multi_as_array;
         
         while (config_scanner.hasNext())
         {
             set_name = config_scanner.next().replace(":", "");
-            set_value = config_scanner.next();
+            set_value = new StringBuilder(config_scanner.next());
             
-            if (set_value.equals("{"))
+            if (set_value.toString().equals("{"))
             {
                 while (!(tmp_value = config_scanner.next()).equals("}") || config_scanner.hasNext())
                 {
-                    set_value += tmp_value;
+                    set_value.append(tmp_value);
                 }
                 
-                set_value += "}";
+                set_value.append("}");
                 
                 tmp_value = set_value.substring(1, set_value.length()-1);
                 
@@ -153,7 +172,7 @@ public class MSettings extends JFrame
                 cash_multi.add(null);
             }
             
-            cash.add(new String[]{set_name, set_value});
+            cash.add(new String[]{set_name, set_value.toString()});
         }
     }
     
@@ -170,6 +189,12 @@ public class MSettings extends JFrame
             {
                 cashed_setting[1] = new_value;
                 cash.set(i, cashed_setting);
+                
+                if (cash_multi.get(i) != null)
+                {
+                    // TODO: 12.04.2019 update "cash_multi"!
+                }
+                
                 res = true;
                 break;
             }
