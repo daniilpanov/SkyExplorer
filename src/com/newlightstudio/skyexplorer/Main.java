@@ -1,6 +1,6 @@
 package com.newlightstudio.skyexplorer;
 
-import com.newlightstudio.skyexplorer.app.Controller;
+import com.newlightstudio.skyexplorer.app.CGame;
 import com.newlightstudio.skyexplorer.app.menu.CMenu;
 
 import javax.swing.*;
@@ -12,6 +12,7 @@ import static javax.swing.UIManager.*;
 
 public class Main
 {
+    // Размер экрана
     public static final Dimension screen_size
             = Toolkit.getDefaultToolkit().getScreenSize();
     // Текущий JFrame (либо меню, либо игра)
@@ -22,39 +23,60 @@ public class Main
     // Method-switcher Menu-Main_frame
     public static void switcher()
     {
+        /*
+           FIXME: 15.04.2019 at class {@see CGame}
+           on line 52 using this method and its doesn't switch
+           the frames!
+         */
+        
+        // Предыдущее окно
         JFrame old_frame = current_frame;
         
+        // Если сейчас идёт игра
         if (mode.equals("GAME"))
         {
+            // устанавливаем текущее окно
             current_frame = CMenu.getInstance();
+            // делаем его видимым
             current_frame.setVisible(true);
+            // закрываем старое окно
             old_frame.dispose();
+            // и меняем режим
             mode = "MENU";
         }
+        // Если показано меню
         else if (mode.equals("MENU"))
         {
-            current_frame = new Controller();
+            // создаём новый объект контроллера игры
+            current_frame = new CGame();
+            // делаем его видимым
             current_frame.setVisible(true);
+            // убираем старое окно
             old_frame.setVisible(false);
+            // и меняем режим
             mode = "MENU";
         }
     }
     
     private Main()
     {
-        //
+        // Устанавливаем "настройки" по умолчанию:
+        // сейчас текущее окно - меню
         current_frame = CMenu.getInstance();
         mode = "MENU";
-        
+        // делаем окно видимым
         current_frame.setVisible(true);
     }
     
     public static void main(String[] args)
     {
+        // УСТАНАВЛИВАЕМ LOOK-AND-FEEL
         try
         {
+            // В цикле перебираем все возможные LookAndFeel
             for (LookAndFeelInfo lookAndFeel : getInstalledLookAndFeels())
             {
+                // и если среди них есть "Nimbus", то устанавливаем его
                 if (lookAndFeel.getName().equals("Nimbus"))
                 {
                     setLookAndFeel(lookAndFeel.getClassName());
@@ -67,7 +89,7 @@ public class Main
             e.printStackTrace();
         }
         
-        
+        // ЗАПУСКАЕМ ПРОГРАММУ
         EventQueue.invokeLater(Main::new);
     }
     
