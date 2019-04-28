@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 class VGame extends JPanel
 {
     JButton open_menu = new JButton("Открыть меню");
-    Paint paint = null;
+    private Paint paint = null;
     
     VGame()
     {

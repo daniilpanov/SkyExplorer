@@ -12,56 +12,13 @@ class MSettings extends JFrame
     private FileWriter config_editor;
     private Scanner config_scanner;
     
-    private ArrayList<String[]> cash = new ArrayList<>(),
-            fixed = new ArrayList<>(),
-            cash_multi = new ArrayList<>();
-    
-    private ArrayList<String> errors = new ArrayList<>();
+    private ArrayList<String[]> cash,
+            cash_multi;
     
     MSettings()
     {
-        if (!initConfigFile())
-        {
-            errors.add("<b>Configuration file is not found!</b> We will try to create it!");
-            
-            if (!initConfigWriter())
-            {
-                errors.add("Sorry, we can not to create configuration file... " +
-                        "Please, <i>reload this game</i>. " +
-                        "If it will be <u>display again, text us</u>. Thank you!");
-            }
-            else
-            {
-                fixed.add(
-                        new String[]{
-                                String.valueOf(errors.size()-1),
-                                "Configuration file was created!"
-                        }
-                );
-                
-                if (initConfigReader())
-                {
-                    initScanner();
-                }
-                else
-                {
-                    errors.add("<b>Unknown error!</b> You should reload this game!");
-                }
-            }
-        }
-        else
-        {
-            if (initConfigReader())
-            {
-                initScanner();
-                
-                initCash();
-            }
-            else
-            {
-                errors.add("<b>Unknown error!</b> You should reload this game!");
-            }
-        }
+        cash = new ArrayList<>();
+        cash_multi = new ArrayList<>();
     }
     
     String[][] getSettings()
@@ -107,15 +64,13 @@ class MSettings extends JFrame
     }*/
     
     
-    boolean editSetting(String name, String value)
+    void editSetting(String name, String value) throws Exception
     {
         if (!updateCash(name, value))
         {
-            errors.add("<b>Unknown error!</b> You should reload this game!");
-            return false;
+            throw new Exception("<b>Unknown error!</b> You should reload this game!");
         }
         
-        boolean res = true;
         StringBuilder settings_content = new StringBuilder();
         
         for (String[] part_of_cash : cash)
@@ -132,15 +87,11 @@ class MSettings extends JFrame
         }
         catch (IOException e)
         {
-            res = false;
-            e.printStackTrace();
+            throw new Exception("<b>Unknown error!</b> You should reload this game!");
         }
-    
-    
-        return res;
     }
     
-    private void initCash()
+    void initCash()
     {
         String set_name;
         StringBuilder set_value;
@@ -176,7 +127,7 @@ class MSettings extends JFrame
         }
     }
     
-    private boolean updateCash(String name, String new_value)
+    boolean updateCash(String name, String new_value)
     {
         boolean res = false;
         String[] cashed_setting;
@@ -204,7 +155,7 @@ class MSettings extends JFrame
     }
     
     
-    private boolean initConfigFile()
+    boolean initConfigFile()
     {
         boolean res = true;
         
@@ -220,7 +171,7 @@ class MSettings extends JFrame
         return res;
     }
     
-    private boolean initConfigReader()
+    boolean initConfigReader()
     {
         boolean res = true;
         
@@ -236,7 +187,7 @@ class MSettings extends JFrame
         return res;
     }
     
-    private boolean initConfigWriter()
+    boolean initConfigWriter()
     {
         boolean res = true;
         
@@ -252,7 +203,7 @@ class MSettings extends JFrame
         return res;
     }
     
-    private void initScanner()
+    void initScanner()
     {
         config_scanner = new Scanner(config_reader);
     }
