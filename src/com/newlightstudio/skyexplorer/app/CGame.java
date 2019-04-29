@@ -1,28 +1,51 @@
 package com.newlightstudio.skyexplorer.app;
 
 import com.newlightstudio.skyexplorer.Main;
-import com.newlightstudio.skyexplorer.app.sprite.CSprite;
+import com.newlightstudio.skyexplorer.app.sprite.Sprite;
 
 import javax.swing.*;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static com.newlightstudio.skyexplorer.app.Img.starship;
 
 public class CGame extends MGame
 {
     private VGame view = new VGame();
+    private JWindow menu_window = new JWindow();
+    private JLabel player_label = new JLabel();
     
     public CGame()
     {
         super();
+        
+        //
+        //
+        int
+                player_w = starship.getIconWidth(),
+                player_h = starship.getIconHeight(),
+                x = (int) ((Main.screen_size.getWidth() - player_w) / 2),
+                y = (int) ((Main.screen_size.getHeight() - player_h) / 2);
+        //
+        player = new StarShip(x, y, player_label);
+        
         //setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(Main.screen_size);
         setExtendedState(MAXIMIZED_BOTH);
         requestFocus();
         
+        player_label.setIcon(player.getSpriteIcon());
+        player_label.setSize(
+                player.getWidth(),
+                player.getHeight()
+        );
+        player_label.setLocation(player.getX(), player.getY());
+        
         view.addImageToButton(Img.b_go_to_game_menu, view.open_menu);
         view.addActionListenerToOpenMenu(e -> openMenu());
-        view.setPaint((this::paint));
+        
+        view.add(player_label);
         
         getContentPane().add(view);
         setVisible(true);
@@ -35,27 +58,46 @@ public class CGame extends MGame
     
     private void openMenu()
     {
-        JWindow menu_window = new JWindow();
-        JPanel menu_panel = new JPanel();
-        JButton menu_resume = new JButton("resume"),
-                menu_stop = new JButton("stop");
-        
+        // Меню при паузе
+        JPanel menu_panel = new JPanel(); // панель меню
+        JButton menu_resume = new JButton("resume"), // возобновить игру
+                menu_stop = new JButton("stop"); // выйти из игры
+        // Добавляем иконки на эти кнопки
         view.addImageToButton(Img.b_resume_game_menu, menu_resume);
         view.addImageToButton(Img.b_exit_game_menu, menu_stop);
-    
+        
+        // Устанавливаем спрайтов, которые нужно рисовать
+        view.setDrawing(spritesToArray());
+        
         menu_panel.add(menu_resume);
         menu_panel.add(menu_stop);
         
         menu_window.getContentPane().add(menu_panel);
         
-        menu_resume.addActionListener(e -> menu_window.setVisible(false));
-        menu_stop.addActionListener(e -> Main.switcher());
+        menu_resume.addActionListener(
+                e -> menu_window.setVisible(false)
+        );
+        menu_stop.addActionListener(
+                e -> goToMenu()
+        );
         
+        int one_of_two_width = (int)(Main.screen_size.getWidth() / 2),
+                one_of_two_height = (int)(Main.screen_size.getHeight() / 2);
         menu_window.setSize(
-                (int)(Main.screen_size.getWidth()/2),
-                (int)(Main.screen_size.getHeight()/2)
+                one_of_two_width,
+                one_of_two_height
+        );
+        menu_window.setLocation(
+                one_of_two_width - menu_window.getWidth() / 2,
+                one_of_two_height - menu_window.getHeight() / 2
         );
         menu_window.setVisible(true);
+    }
+    
+    private void goToMenu()
+    {
+        menu_window.setVisible(false);
+        Main.switcher();
     }
     
     public void die(String mess)
@@ -65,16 +107,23 @@ public class CGame extends MGame
         stop();
     }
     
-    public void paint(Graphics g)
+    private Sprite[] spritesToArray()
     {
-        Graphics2D g2d = (Graphics2D) g;
-    
-        for (CSprite[] bg_x : living_bg)
+        ArrayList<Sprite> sprites = new ArrayList<>();
+        
+        for (Sprite[] bg_row : living_bg)
         {
-            for (CSprite one_bg : bg_x)
-            {
-                one_bg.render(g2d);
-            }
+            sprites.addAll(Arrays.asList(bg_row));
         }
+        
+        //
+        Sprite[] sprites_as_array = new Sprite[sprites.size()];
+        //
+        for (int i = 0; i < sprites.size(); i++)
+        {
+            sprites_as_array[i] = sprites.get(i);
+        }
+        
+        return sprites_as_array;
     }
 }

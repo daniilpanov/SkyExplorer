@@ -2,9 +2,9 @@ package com.newlightstudio.skyexplorer.app.sprite;
 
 import java.awt.Image;
 
-class MSprite
+class SpriteData
 {
-    int // Координаты
+    protected int // Координаты
             x, y,
             // Размеры
             width, height,
@@ -15,41 +15,11 @@ class MSprite
             // Для дивжений во все стороны
             increment_x, increment_y;
     // Изображение спрайта
-    Image img;
+    protected Image img;
     // Является ли спрайт декорацией (возможность столкновения)
     boolean decoration;
     // Поворот изображения спрайта
     double rotation;
-    
-    MSprite(int x, int y, int width, int height, int dir_x, int dir_y,
-            Image img, boolean decoration
-    )
-    {
-        // Координаты
-        this.x = x;
-        this.y = y;
-        // Размеры
-        this.width = width;
-        this.height = height;
-        // Направления (по OX и OY)
-        this.dir_x = dir_x;
-        this.dir_y = dir_y;
-        // Картинка
-        this.img = img;
-        // Является ли спрайт декорацией (возможность столкновения)
-        this.decoration = decoration;
-        // Поворот изображения
-        this.rotation = 0;
-    }
-    
-    MSprite(int x, int y, int dir_x, int dir_y,
-            Image img, boolean decoration
-    )
-    {
-        this(x, y, img.getWidth(null), img.getHeight(null),
-                dir_x, dir_y, img, decoration
-        );
-    }
     
     public boolean isDecoration()
     {

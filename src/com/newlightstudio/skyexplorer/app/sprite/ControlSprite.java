@@ -7,17 +7,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public abstract class CControlSprite extends CSprite
+public abstract class ControlSprite extends Sprite
 {
-    public CControlSprite(int x, int y, int width, int height, int dir_x, int dir_y,
-                          Image img, boolean decoration
+    public ControlSprite(int x, int y, int width, int height, int dir_x, int dir_y,
+                         Image img, boolean decoration
     )
     {
         super(x, y, width, height, dir_x, dir_y, img, decoration);
     }
     
-    public CControlSprite(int x, int y, int dir_x, int dir_y,
-                   Image img, boolean decoration
+    public ControlSprite(int x, int y, int dir_x, int dir_y,
+                         Image img, boolean decoration
     )
     {
         super(x, y, img.getWidth(null), img.getHeight(null),

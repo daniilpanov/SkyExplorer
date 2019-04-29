@@ -1,18 +1,17 @@
 package com.newlightstudio.skyexplorer.app;
 
+import com.newlightstudio.skyexplorer.app.sprite.Sprite;
+
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 class VGame extends JPanel
 {
     JButton open_menu = new JButton("Открыть меню");
-    private Paint paint = null;
+    private Sprite[] drawing;
     
     VGame()
     {
@@ -26,11 +25,6 @@ class VGame extends JPanel
         
         //
         add(for_open_menu, BorderLayout.NORTH);
-    }
-    
-    void setPaint(Paint paint)
-    {
-        this.paint = paint;
     }
     
     void addImageToButton(Icon img, JButton button)
@@ -55,10 +49,17 @@ class VGame extends JPanel
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+    
+        Graphics2D graphics2D = (Graphics2D) g;
         
-        if (paint != null)
+        for (Sprite sprite : drawing)
         {
-            paint.paint(g);
+            sprite.draw(graphics2D);
         }
+    }
+    
+    public void setDrawing(Sprite[] drawing)
+    {
+        this.drawing = drawing;
     }
 }

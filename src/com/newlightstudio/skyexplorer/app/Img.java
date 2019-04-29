@@ -16,9 +16,6 @@ public class Img
 
 	// КАРТИНКИ ДЛЯ САМОЙ ИГРЫ (будут показываться во время игрового процесса):
 	public static final Image
-			// Корабли (разные направления движения)
-			starship_r = getImg("starship_r.png"), // вправо
-			starship_l = getImg("starship_l.png"), // влево
 			// Фон
 			bg = getImg("bg.png"),
 			// Заставка
@@ -42,6 +39,10 @@ public class Img
 			b_help = getIcon("b_help.png"), // помощь
 			b_play = getIcon("b_play.png"), // играть
 			b_settings = getIcon("b_settings.png"); // настройки
+	
+	// Корабль
+	public static final ImageIcon
+			starship = new ImageIcon("starship.png");
 
 	// Закрываем возможность создавать объекты этого класса
 	private Img()

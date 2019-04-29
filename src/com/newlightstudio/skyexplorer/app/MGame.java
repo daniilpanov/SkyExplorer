@@ -1,7 +1,7 @@
 package com.newlightstudio.skyexplorer.app;
 
 import com.newlightstudio.skyexplorer.Main;
-import com.newlightstudio.skyexplorer.app.sprite.CSprite;
+import com.newlightstudio.skyexplorer.app.sprite.Sprite;
 
 import javax.swing.JFrame;
 
@@ -10,8 +10,8 @@ import static com.newlightstudio.skyexplorer.app.Img.*;
 class MGame extends JFrame
 {
     int scores;
-    CSprite[][] living_bg = new CSprite[3][3];
-    CStarShip hero;
+    Sprite[][] living_bg = new Sprite[3][3];
+    StarShip player;
     
     MGame()
     {
@@ -27,18 +27,8 @@ class MGame extends JFrame
         {
             for (int j = 0, x = -bg_width; j < living_bg[i].length; j++, x += bg_width)
             {
-                living_bg[i][j] = new CSprite(x, y, bg_width, bg_height, bg, true);
+                living_bg[i][j] = new Sprite(x, y, bg_width, bg_height, bg, true);
             }
         }
-        
-        //
-        //
-        int
-                hero_w = starship_l.getWidth(null),
-                hero_h = starship_l.getHeight(null),
-                x = (int) ((Main.screen_size.getWidth() - hero_w) / 2),
-                y = (int) ((Main.screen_size.getHeight() - hero_h) / 2);
-        //
-        hero = new CStarShip(x, y);
     }
 }

@@ -23,12 +23,6 @@ public class Main
     // Method-switcher Menu-Main_frame
     public static void switcher()
     {
-        /*
-           FIXME: 15.04.2019 at class {@see CGame}
-           on line 52 using this method and its doesn't switch
-           the frames!
-         */
-        
         // Предыдущее окно
         JFrame old_frame = current_frame;
         
@@ -54,7 +48,7 @@ public class Main
             // убираем старое окно
             old_frame.setVisible(false);
             // и меняем режим
-            mode = "MENU";
+            mode = "GAME";
         }
     }
     
