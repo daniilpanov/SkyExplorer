@@ -3,7 +3,11 @@ package com.newlightstudio.skyexplorer.app;
 import com.newlightstudio.skyexplorer.Main;
 import com.newlightstudio.skyexplorer.app.sprite.Sprite;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JWindow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,12 +17,15 @@ public class CGame extends MGame
 {
     private VGame view = new VGame();
     private JWindow menu_window = new JWindow();
-    private JLabel player_label = new JLabel();
+    private JLabel player_label = new JLabel("Hello!");
     
     public CGame()
     {
         super();
-        
+    
+        // Устанавливаем спрайтов, которые нужно рисовать
+        view.setDrawing(spritesToArray());
+    
         //
         //
         int
@@ -28,19 +35,12 @@ public class CGame extends MGame
                 y = (int) ((Main.screen_size.getHeight() - player_h) / 2);
         //
         player = new StarShip(x, y, player_label);
-        
+    
         //setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(Main.screen_size);
         setExtendedState(MAXIMIZED_BOTH);
         requestFocus();
-        
-        player_label.setIcon(player.getSpriteIcon());
-        player_label.setSize(
-                player.getWidth(),
-                player.getHeight()
-        );
-        player_label.setLocation(player.getX(), player.getY());
         
         view.addImageToButton(Img.b_go_to_game_menu, view.open_menu);
         view.addActionListenerToOpenMenu(e -> openMenu());
@@ -65,9 +65,6 @@ public class CGame extends MGame
         // Добавляем иконки на эти кнопки
         view.addImageToButton(Img.b_resume_game_menu, menu_resume);
         view.addImageToButton(Img.b_exit_game_menu, menu_stop);
-        
-        // Устанавливаем спрайтов, которые нужно рисовать
-        view.setDrawing(spritesToArray());
         
         menu_panel.add(menu_resume);
         menu_panel.add(menu_stop);
@@ -115,14 +112,10 @@ public class CGame extends MGame
         {
             sprites.addAll(Arrays.asList(bg_row));
         }
-        
         //
         Sprite[] sprites_as_array = new Sprite[sprites.size()];
         //
-        for (int i = 0; i < sprites.size(); i++)
-        {
-            sprites_as_array[i] = sprites.get(i);
-        }
+        sprites_as_array = sprites.toArray(sprites_as_array);
         
         return sprites_as_array;
     }

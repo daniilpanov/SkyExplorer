@@ -42,7 +42,7 @@ public class Img
 	
 	// Корабль
 	public static final ImageIcon
-			starship = new ImageIcon("starship.png");
+			starship = new ImageIcon(PATH + "starship.png");
 
 	// Закрываем возможность создавать объекты этого класса
 	private Img()

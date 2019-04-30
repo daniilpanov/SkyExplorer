@@ -20,6 +20,13 @@ public class StarShip extends ControlSprite
         super(x, y, -1, -1, Img.starship.getImage(), false);
         this.picture_view = picture_view;
         this.sprite_icon = Img.starship;
+    
+        picture_view.setIcon(getSpriteIcon());
+        picture_view.setSize(
+                getWidth(),
+                getHeight()
+        );
+        picture_view.setLocation(x, y);
     }
     
     @Override

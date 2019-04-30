@@ -1,5 +1,6 @@
 package com.newlightstudio.skyexplorer.app;
 
+import com.newlightstudio.skyexplorer.Main;
 import com.newlightstudio.skyexplorer.app.sprite.Sprite;
 
 import javax.swing.Icon;
@@ -16,10 +17,13 @@ class VGame extends JPanel
     VGame()
     {
         //
-        setLayout(new BorderLayout());
+        setLayout(/*new BorderLayout()*/null);
+        setLocation(0, 0);
         
         //
         JPanel for_open_menu = new JPanel();
+        for_open_menu.setLocation(0, 0);
+        for_open_menu.setSize(Main.screen_size.width, 70);
         for_open_menu.setBackground(new Color(0, 0, 45));
         for_open_menu.add(open_menu);
         
@@ -49,7 +53,6 @@ class VGame extends JPanel
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-    
         Graphics2D graphics2D = (Graphics2D) g;
         
         for (Sprite sprite : drawing)
@@ -58,7 +61,7 @@ class VGame extends JPanel
         }
     }
     
-    public void setDrawing(Sprite[] drawing)
+    void setDrawing(Sprite[] drawing)
     {
         this.drawing = drawing;
     }
