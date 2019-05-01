@@ -15,7 +15,6 @@ import static com.newlightstudio.skyexplorer.app.Img.starship;
 
 public class CGame extends MGame
 {
-    private VGame view = new VGame();
     private JWindow menu_window = new JWindow();
     private JLabel player_label = new JLabel("Hello!");
     

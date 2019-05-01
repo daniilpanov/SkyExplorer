@@ -12,6 +12,7 @@ class MGame extends JFrame
     int scores;
     Sprite[][] living_bg = new Sprite[3][3];
     StarShip player;
+    VGame view = new VGame();
     
     MGame()
     {
@@ -27,7 +28,7 @@ class MGame extends JFrame
         {
             for (int j = 0, x = -bg_width; j < living_bg[i].length; j++, x += bg_width)
             {
-                living_bg[i][j] = new Sprite(x, y, bg_width, bg_height, bg, true);
+                living_bg[i][j] = new Sprite(x, y, bg_width, bg_height, bg, view, true);
             }
         }
     }

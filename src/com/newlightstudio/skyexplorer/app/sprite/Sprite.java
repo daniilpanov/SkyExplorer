@@ -1,15 +1,16 @@
 package com.newlightstudio.skyexplorer.app.sprite;
 
 import javax.swing.*;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 
 public class Sprite extends SpriteData
 {
     private Timer moving;
+    private Component parent;
+    private boolean may_stopping = true;
     
     public Sprite(int x, int y, int width, int height, int dir_x, int dir_y,
-                  Image img, boolean decoration
+                  Image img, Component parent, boolean decoration
     )
     {
         // Координаты
@@ -27,14 +28,16 @@ public class Sprite extends SpriteData
         this.decoration = decoration;
         // Поворот изображения
         this.rotation = 0;
+        // На чём будет рисоваться спрайт
+        this.parent = parent;
     }
     
     public Sprite(int x, int y, int dir_x, int dir_y,
-                  Image img, boolean decoration
+                  Image img, Component parent, boolean decoration
     )
     {
         this(x, y, img.getWidth(null), img.getHeight(null),
-                dir_x, dir_y, img, decoration
+                dir_x, dir_y, img, parent, decoration
         );
     }
     
@@ -46,6 +49,12 @@ public class Sprite extends SpriteData
     public void setLocation(int x, int y)
     {
         this.x = x; this.y = y;
+        parent.repaint();
+    }
+    
+    public void setMayStopping(boolean may_stopping)
+    {
+        this.may_stopping = may_stopping;
     }
     
     public void move(int x, int y, int dir_x, int dir_y)
@@ -58,8 +67,15 @@ public class Sprite extends SpriteData
     
     public void move(int x, int y)
     {
-        this.x += x * dir_x;
-        this.y += y * dir_y;
+        int old_x = this.x,
+                old_y = this.y,
+                width = x * dir_x,
+                height = y * dir_y ;
+        
+        this.x += width;
+        this.y += height;
+        
+        parent.repaint(old_x, old_y, width + getWidth(), height + getHeight());
     }
     
     /*
@@ -73,9 +89,39 @@ public class Sprite extends SpriteData
     /*
      *
     */
-    public void slowStopping()
+    protected void slowStopping()
     {
-    
+        if (moving == null)
+        {
+            moving = new Timer(500, e ->
+            {
+                if (add_increment_x < 0 || add_increment_y < 0
+                        || !may_stopping
+                )
+                {
+                    add_increment_x = add_increment_y = 0;
+        
+                    moving.stop();
+                    moving = null;
+                }
+                else
+                {
+                    double decrement_x = add_increment_x / 5,
+                            decrement_y = add_increment_y / 5;
+        
+                    add_increment_x -= decrement_x;
+                    add_increment_y -= decrement_y;
+        
+                    move(
+                            (int) (increment_x + add_increment_x),
+                            (int) (increment_y + add_increment_y)
+                    );
+                }
+            });
+            
+            moving.start();
+        }
+        
     }
     
     /*
@@ -138,5 +184,10 @@ public class Sprite extends SpriteData
     public double calculateFlightPath(double width, double height)
     {
         return height / width;
+    }
+    
+    public boolean mayStopping()
+    {
+        return may_stopping;
     }
 }

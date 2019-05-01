@@ -17,7 +17,7 @@ public class StarShip extends ControlSprite
     
     StarShip(int x, int y, JLabel picture_view)
     {
-        super(x, y, -1, -1, Img.starship.getImage(), false);
+        super(x, y, -1, -1, Img.starship.getImage(), picture_view, false);
         this.picture_view = picture_view;
         this.sprite_icon = Img.starship;
     
@@ -30,8 +30,10 @@ public class StarShip extends ControlSprite
     }
     
     @Override
-    protected void keyControl(KeyEvent e)
+    protected boolean keyControl(KeyEvent e)
     {
+        boolean pressed = false;
+        
         switch (e.getKeyCode())
         {
             case VK_ENTER:
@@ -45,35 +47,41 @@ public class StarShip extends ControlSprite
             case VK_UP:
                 //
                 dir_y = -1;
-                
                 //
                 movePictureView();
+                //
+                pressed = true;
                 break;
                 
             case VK_DOWN:
                 //
                 dir_y = 1;
-                
                 //
                 movePictureView();
+                //
+                pressed = true;
                 break;
             
             case VK_LEFT:
                 //
                 dir_x = -1;
-                
                 //
                 movePictureView();
+                //
+                pressed = true;
                 break;
                 
             case VK_RIGHT:
                 //
                 dir_x = 1;
-                
                 //
                 movePictureView();
+                //
+                pressed = true;
                 break;
         }
+        
+        return pressed;
     }
     
     @Override
@@ -84,12 +92,32 @@ public class StarShip extends ControlSprite
         
         double[] cathetus_and_dir = calculateCathetus(x, y);
         
-        
+        rotate(
+                cathetus_and_dir[0] * cathetus_and_dir[2],
+                cathetus_and_dir[1] * cathetus_and_dir[3]
+        );
     }
     
     @Override
     public void draw(Graphics2D g)
     {
+        g.rotate(getRotation());
+        
+        g.drawImage(getImg(), getX(), getY(), null);
+    }
+    
+    @Override
+    public void move(int x, int y)
+    {
+        int old_x = this.x,
+                old_y = this.y,
+                width = x * dir_x,
+                height = y * dir_y ;
+    
+        this.x += width;
+        this.y += height;
+        
+        picture_view.repaint();
     }
     
     private void movePictureView()

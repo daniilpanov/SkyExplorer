@@ -9,9 +9,10 @@ class SpriteData
             // Размеры
             width, height,
             // Направление
-            dir_x, dir_y,
-            // This variable is increment of speed to make this more realistic
-            increment = 1,
+            dir_x, dir_y;
+    double
+            // Those variables are increments of speed to make moving more realistic
+            add_increment_x = 0, add_increment_y = 0,
             // Для дивжений во все стороны
             increment_x, increment_y;
     // Изображение спрайта
@@ -46,12 +47,12 @@ class SpriteData
         return height;
     }
     
-    public int getDir_x()
+    public int getDirX()
     {
         return dir_x;
     }
     
-    public int getDir_y()
+    public int getDirY()
     {
         return dir_y;
     }
@@ -59,5 +60,10 @@ class SpriteData
     public Image getImg()
     {
         return img;
+    }
+    
+    public double getRotation()
+    {
+        return rotation;
     }
 }
