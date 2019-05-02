@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.NoninvertibleTransformException;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -110,15 +109,8 @@ public class StarShip extends ControlSprite
     public void draw(Graphics2D g)
     {
         transform = new AffineTransform();
-        transform.rotate(getRotation(), getWidth() / 2, getHeight() / 2);
-        /*try
-        {
-            transform.invert();
-        }
-        catch (NoninvertibleTransformException e)
-        {
-            e.printStackTrace();
-        }*/
+        transform.rotate(getRotation(), getWidth() >> 1, getHeight() >> 1);
+        
         g.setTransform(transform);
         
         g.drawImage(getImg(), 0, 0, null);
