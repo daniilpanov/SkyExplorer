@@ -3,6 +3,8 @@ package com.newlightstudio.skyexplorer.app.sprite;
 import javax.swing.*;
 import java.awt.*;
 
+// ПРОСЬБА!!! Слабонервным дальше НЕ ЧИТАТЬ!
+
 public class Sprite extends SpriteData
 {
     private Timer moving;
@@ -16,17 +18,17 @@ public class Sprite extends SpriteData
         // Координаты
         this.x = x;
         this.y = y;
-        // Размеры
+        // Размеры картинки
         this.width = width;
         this.height = height;
-        // Направления (по OX и OY)
+        // Направления по OX и OY
         this.dir_x = dir_x;
         this.dir_y = dir_y;
         // Картинка
         this.img = img;
         // Является ли спрайт декорацией (возможность столкновения)
         this.decoration = decoration;
-        // Поворот изображения
+        // Поворот изображения (в радианах)
         this.rotation = 0;
         // На чём будет рисоваться спрайт
         this.parent = parent;
@@ -43,12 +45,13 @@ public class Sprite extends SpriteData
     
     public void draw(Graphics2D g)
     {
-        g.drawImage(img, x, y, null);
+        g.drawImage(img, (int) x, (int) y, null);
     }
     
-    public void setLocation(int x, int y)
+    public void setLocation(double x, double y)
     {
-        this.x = x; this.y = y;
+        this.x = x;
+        this.y = y;
         parent.repaint();
     }
     
@@ -57,7 +60,7 @@ public class Sprite extends SpriteData
         this.may_stopping = may_stopping;
     }
     
-    public void move(int x, int y, int dir_x, int dir_y)
+    public void move(double x, double y, int dir_x, int dir_y)
     {
         this.dir_x = dir_x;
         this.dir_y = dir_y;
@@ -65,12 +68,13 @@ public class Sprite extends SpriteData
         move(x, y);
     }
     
-    public void move(int x, int y)
+    public void move(double x, double y)
     {
-        int old_x = this.x,
-                old_y = this.y,
-                width = x * dir_x,
-                height = y * dir_y ;
+        int
+                old_x = (int) this.x,
+                old_y = (int) this.y,
+                width = (int)(x * dir_x),
+                height = (int)(y * dir_y);
         
         this.x += width;
         this.y += height;
@@ -128,17 +132,29 @@ public class Sprite extends SpriteData
      * ТУТ НАДО ПРЕДСТАВИТЬ ПРЯМОУГОЛЬНЫЙ ТРЕУГОЛЬНИК OWH
      * С ПРЯМЫМ УГЛОМ O
      * И СТОРОНАМИ WO (width) И HO (height)
+     * Надеюсь, у читателя-программиста хватит на это воображения
      * ***
-     *
+     * Этот метод определяет угол прилежащий к катету WO теругольника OWH
+     * (геометрия!)
     */
-    public void rotate(double width, double height)
+    public void rotate(double length, double height)
     {
-        rotation = Math.atan2(width, height);
+        /*
+         Не понимаю, в чём тут прикол:
+         первой должна идти длина, а потом высота!
+         Но если сделать так, как должно быть,
+         то спрайт поворачивается НАОБОРОТ!
+         Т.е. в противоположном направлении от мыши.
+         (остаётся только благодарить Бога за то, что это работает,
+         чем я сейчас и занимаюсь ;-D)
+        */
+        // Здесь мы получаем угол наклона в радианах (!!!)
+        rotation = Math.atan2(height, length);
     }
     
     /*
-     * Считает длину катетов
-     * Треугольник: от координатов мыши до координатов спрайта
+     * Считает длину катетов (опять геометрия!!!)
+     * Треугольник: от координат мыши до координат спрайта
      * 1-й катет - расстояние по X (WO)
      * 2-й катет - расстояние по Y (HO)
     */
@@ -180,12 +196,17 @@ public class Sprite extends SpriteData
     
     /*
      * Высчитывает, сколько нужно прибавить по OY при увеличении OX на 1
+     * (отношение (в алгебре, а не в жизни!) высоты к длине)
     */
-    public double calculateFlightPath(double width, double height)
+    public double calculateHeightAtOneLength(double length, double height)
     {
-        return height / width;
+        return height / length;
     }
     
+    /*
+     * Метод "говорит" нам, можно ли остановиться
+     * (какой жестокий метод!)
+    */
     public boolean mayStopping()
     {
         return may_stopping;

@@ -72,7 +72,7 @@ class Radar extends Sprite
     class Obj
     {
         private String type;
-        private int x, y;
+        private double x, y;
         
         Obj(Sprite real_obj,
             @MagicConstant(stringValues = {ENEMY_OBJ, FINISH_OBJ, PLANET})
@@ -84,12 +84,12 @@ class Radar extends Sprite
             this.type = type;
         }
     
-        public int getX()
+        public double getX()
         {
             return x;
         }
     
-        public int getY()
+        public double getY()
         {
             return y;
         }

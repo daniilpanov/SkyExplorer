@@ -4,13 +4,14 @@ import java.awt.Image;
 
 class SpriteData
 {
-    protected int // Координаты
-            x, y,
+    protected int
             // Размеры
             width, height,
             // Направление
             dir_x, dir_y;
-    double
+    protected double
+            // Координаты
+            x, y,
             // Those variables are increments of speed to make moving more realistic
             add_increment_x = 0, add_increment_y = 0,
             // Для дивжений во все стороны
@@ -25,16 +26,6 @@ class SpriteData
     public boolean isDecoration()
     {
         return decoration;
-    }
-    
-    public int getX()
-    {
-        return x;
-    }
-    
-    public int getY()
-    {
-        return y;
     }
     
     public int getWidth()
@@ -65,5 +56,15 @@ class SpriteData
     public double getRotation()
     {
         return rotation;
+    }
+    
+    public double getX()
+    {
+        return x;
+    }
+    
+    public double getY()
+    {
+        return y;
     }
 }

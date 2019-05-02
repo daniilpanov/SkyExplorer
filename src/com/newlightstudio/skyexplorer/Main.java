@@ -3,7 +3,8 @@ package com.newlightstudio.skyexplorer;
 import com.newlightstudio.skyexplorer.app.CGame;
 import com.newlightstudio.skyexplorer.app.menu.CMenu;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
