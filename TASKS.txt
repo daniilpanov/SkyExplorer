@@ -1,0 +1,20 @@
+What is doing now?
+ - Sprite's moving
+
+Features:
+ - Enemies
+  ~ random generation
+  ~ be able to moving
+  ~ shooting
+   + hit player
+   + hit enemy
+ - Arena
+  ~ collisions auto-checking
+  ~ moving background
+ - Planets
+  ~ generation
+  ~ exploring
+  ~ finishing
+  ~ living on planets enemies
+   + generation
+   + doing

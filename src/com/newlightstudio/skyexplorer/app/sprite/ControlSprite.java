@@ -55,6 +55,8 @@ public abstract class ControlSprite extends Sprite
                     // Осуществляем контроль с помощью клавиш
                     if (keyControl(e))
                     {
+                        // если нажата одна из нужных клавиш,
+                        // останавливаем остановку и продолжаем движение
                         setMayStopping(false);
                     }
                 }
@@ -68,12 +70,11 @@ public abstract class ControlSprite extends Sprite
                 public void keyReleased(KeyEvent e)
                 {
                     super.keyReleased(e);
+                    //
+                    setMayStopping(true);
                     // При поднятии клавиши
                     // будет произведена медленная остановка
-                    if (mayStopping())
-                    {
-                        slowStopping();
-                    }
+                    slowStopping();
                 }
             }
             // А если же медленная остановка не требуется, то

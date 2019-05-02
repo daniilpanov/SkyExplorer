@@ -30,7 +30,7 @@ public class TestForStarship extends JFrame
         
         ship = new StarShip(500, 500, label);
         
-        ship.addKeyControl(this, false);
+        ship.addKeyControl(this, true);
         ship.addMouseControl(this);
         
         JPanel p = new JPanel(null);

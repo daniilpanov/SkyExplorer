@@ -34,11 +34,9 @@ public class StarShip extends ControlSprite
     @Override
     protected boolean keyControl(KeyEvent e)
     {
-        boolean pressed = false;
-        /*if (shoot())
-                {
-                
-                }*/
+        boolean pressed = false,
+                speed_up = false;
+        
         switch (e.getKeyCode())
         {
             case VK_ENTER:
@@ -47,40 +45,69 @@ public class StarShip extends ControlSprite
                 break;
             
             case VK_UP:
-                //
-                dir_y = -1;
-                //
-                movePictureView();
+                // Осуществляем ускорение:
+                // Если лимит ускорения не превышен,
+                if ((add_increment_x + add_increment_y) / 2 < 50)
+                {
+                    // с помощью этих малопонятных (и мне самому тоже) формул,
+                    // увеличиваем разгон
+                    add_increment_x += increment_x * 2 + add_increment_x / 2; // по OX
+                    add_increment_y += increment_y * 2 + add_increment_y / 2; // по OY
+                }
+                
                 //
                 pressed = true;
+                //
+                speed_up = true;
                 break;
                 
             case VK_DOWN:
                 //
-                dir_y = 1;
+                dir_x *= -1;
+                dir_y *= -1;
                 //
-                movePictureView();
+                add_increment_x = add_increment_y = 0;
                 //
                 pressed = true;
                 break;
             
             case VK_LEFT:
                 //
-                dir_x = -1;
+                dir_x *= -1;
                 //
-                movePictureView();
+                add_increment_x = add_increment_y = 0;
                 //
                 pressed = true;
                 break;
                 
             case VK_RIGHT:
                 //
-                dir_x = 1;
+                dir_y *= -1;
                 //
-                movePictureView();
+                add_increment_x = add_increment_y = 0;
                 //
                 pressed = true;
                 break;
+        }
+        
+        //
+        if (pressed)
+        {
+            //
+            if (speed_up)
+            {
+                //
+                movePictureView(
+                        increment_x + add_increment_x,
+                        increment_y + add_increment_y
+                );
+            }
+            // Иначе
+            else
+            {
+                // просто передвигаем спрайт
+                movePictureView(increment_x * 10, increment_y * 10);
+            }
         }
         
         return pressed;
@@ -128,8 +155,10 @@ public class StarShip extends ControlSprite
         picture_view.repaint();
     }
     
-    private void movePictureView()
+    private void movePictureView(double len, double height)
     {
+        this.move(len, height);
+        
         picture_view.setLocation((int) x, (int) y);
     }
     
