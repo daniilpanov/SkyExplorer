@@ -36,6 +36,8 @@ public class StarShip extends ControlSprite
     {
         boolean pressed = false,
                 speed_up = false;
+        int new_dir_x = dir_x,
+                new_dir_y = dir_y;
         
         switch (e.getKeyCode())
         {
@@ -63,8 +65,8 @@ public class StarShip extends ControlSprite
                 
             case VK_DOWN:
                 //
-                dir_x *= -1;
-                dir_y *= -1;
+                new_dir_x *= -1;
+                new_dir_y *= -1;
                 //
                 add_increment_x = add_increment_y = 0;
                 //
@@ -73,7 +75,7 @@ public class StarShip extends ControlSprite
             
             case VK_LEFT:
                 //
-                dir_x *= -1;
+                new_dir_x *= -1;
                 //
                 add_increment_x = add_increment_y = 0;
                 //
@@ -82,7 +84,7 @@ public class StarShip extends ControlSprite
                 
             case VK_RIGHT:
                 //
-                dir_y *= -1;
+                new_dir_y *= -1;
                 //
                 add_increment_x = add_increment_y = 0;
                 //
@@ -99,14 +101,18 @@ public class StarShip extends ControlSprite
                 //
                 movePictureView(
                         increment_x + add_increment_x,
-                        increment_y + add_increment_y
+                        increment_y + add_increment_y,
+                        new_dir_x, new_dir_y
                 );
             }
             // Иначе
             else
             {
                 // просто передвигаем спрайт
-                movePictureView(increment_x * 10, increment_y * 10);
+                movePictureView(increment_x * 10,
+                        increment_y * 10,
+                        new_dir_x, new_dir_y
+                );
             }
         }
         
@@ -155,9 +161,9 @@ public class StarShip extends ControlSprite
         picture_view.repaint();
     }
     
-    private void movePictureView(double len, double height)
+    private void movePictureView(double len, double height, int dir_x, int dir_y)
     {
-        this.move(len, height);
+        this.move(len, height, dir_x, dir_y);
         
         picture_view.setLocation((int) x, (int) y);
     }

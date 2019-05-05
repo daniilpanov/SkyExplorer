@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-// Надеюсь, вы хорошо знаете свойства прямоугольных треугольников...
-
 public abstract class ControlSprite extends Sprite
 {
     public ControlSprite(int x, int y, int width, int height, int dir_x, int dir_y,
