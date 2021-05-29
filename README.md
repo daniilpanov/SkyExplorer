@@ -1,4 +1,4 @@
 # SkyExplorer
-The name of this game - **Sky Explorer**
+The name of my game is **Sky Explorer**
 
-**Planet Earth** have very polluted, and live at that planet **will be died**. _A group_ must search the **habitable planet**. Help them and save humanity!
+**Planet Earth** has been very polluting, and now peoples must surviving at themselves planet. _The Explorer Team_ is searching the **habitable planet** now. They need new captain. Help them and save humanity!
