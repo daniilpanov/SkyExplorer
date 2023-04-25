@@ -1,4 +1,3 @@
 # SkyExplorer
-The name of this game - **Sky Explorer**
 
-**Planet Earth** have very polluted, and live at that planet **will be died**. _A group_ must search the **habitable planet**. Help them and save humanity!
+**Planet Earth** is very polluted... Life on this planet... **WILL BE DIED**. Soon. But together we can prevent it! All of humanity united and created a starship capable of traveling millions of light years. A **Great Team** must find a new habitable planet. And they need your help. Save humanity! Help **Great Team**! 
